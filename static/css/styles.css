@@ -1,0 +1,19 @@
+body {
+    background-color: #F9F7F7;
+}
+
+.nav-link {
+    color: #112D4E;
+}
+
+.nav-link:hover {
+    color: #3F72AF;
+}
+
+.brand {
+    color: #112D4E;
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 600;
+    text-decoration: none;
+}

@@ -1,12 +1,6 @@
 from flask import Flask, render_template
-from flask_bootstrap import Bootstrap5
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, validators
-from wtforms.validators import DataRequired
-import csv
 
 app = Flask(__name__)
-Bootstrap5(app)
 
 @app.route("/")
 def home():
