@@ -52,7 +52,10 @@ body {
 .home-img{
     width: 60%;
 }
-
+.home-buttons a {
+    text-decoration: none;
+    color: #111;
+}
 .button-56 {
   align-items: center;
   background-color: #fee6e3;
@@ -125,11 +128,6 @@ body {
 }
 
 
-/* Features */
-
-#Features h3{
-    color: #112D4E;
-}
 
 /* About */
 
@@ -212,6 +210,15 @@ body {
         align-items: center;
     }
     .about-img > img {
-        width: 55%;
+        width: 100%;
     }
+}
+
+/* signup */
+
+.form-sl{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
