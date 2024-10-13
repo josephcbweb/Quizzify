@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from forms import SignUpForm
-import os
 
 
 app = Flask(__name__)
@@ -19,4 +18,3 @@ def signup():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    

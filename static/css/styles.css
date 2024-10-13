@@ -1,5 +1,20 @@
 body {
-    background-color: #F9F7F7;
+    background: linear-gradient(-45deg, #ffcd90, #9cdcf3, #cef8a3);
+    background-size: 400% 400%;
+    animation: gradient 60s ease infinite; /* Slowed down animation */
+    height: 100vh;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .nav-link {
@@ -15,7 +30,9 @@ body {
 .nav-link:hover {
     color: #3F72AF;
 }
-
+#home{
+    height: 100vh;
+}
 .brand {
     color: #112D4E;
     font-size: 2rem;
@@ -37,7 +54,6 @@ body {
     margin-bottom: 1.8rem;
 }
 .home-container{
-    height: 85vh;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -127,19 +143,21 @@ body {
   }
 }
 
-
+#Features{
+    height: 100vh;
+}
 
 /* About */
-
-
-
 #About{
+    background-color: #112D4E;
+}
+
+.about{
     height: 60vh;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 100%;
-    background-color: #112D4E;
     grid-template-rows: 100%;
 }
 
@@ -166,6 +184,7 @@ body {
 
 @media (max-width: 868px) {
     #home{
+        height: fit-content;
         margin: 0 5%;
     }
     .home-img{
@@ -180,9 +199,17 @@ body {
     .home-text > p {
         opacity: 80%;
     }
-
+    .home-container{
+        height: 70vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #Features{
+        height: fit-content;
+    }
     /* about */
-    #About{
+    .about{
         height: 60vh;
         width: 100%;
         display: grid;
