@@ -5,7 +5,7 @@ from forms import SignUpForm
 
 app = Flask(__name__)
 Bootstrap5(app)
-app.config['SECRET_KEY'] = 'vazhayila'
+app.config['SECRET_KEY'] = 'asdfjalskdjfaklj'
 
 @app.route("/")
 def home():
