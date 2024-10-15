@@ -19,7 +19,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quizzify.db'
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
-
 class User(db.Model):
     __tablename__ = "user"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
