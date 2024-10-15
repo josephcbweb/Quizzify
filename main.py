@@ -26,6 +26,8 @@ class User(db.Model):
     email: Mapped[int] = mapped_column(String(250), nullable=False)
     password: Mapped[str] = mapped_column(String(250), nullable=False)
 
+with app.app_context():
+    db.create_all()
 #Routes
 
 @app.route("/")
