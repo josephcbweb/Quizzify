@@ -352,3 +352,122 @@ body {
     text-align: center;
     padding-top: 3rem;
 }
+
+/* Dashboard Page */
+.db-body{
+    background-color:#ffd19a;
+    background-image: none;
+}
+
+.db-brand {
+    color: #ffffff;
+    font-size: 2.2rem;
+    margin: 0;
+    font-weight: 600;
+    text-decoration: none;
+    background: linear-gradient(144deg,#ff0040, #763bff 50%,#ff31ff);
+    background-size: 400% 400%;
+    animation: gradient 60s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.db-nav-link {
+    color:  #003366;
+    font-size: 1.5rem;
+    margin-left: 5rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+.db-nav-item{
+    margin-top: 3%;
+}
+.db-home{
+    height: 90vh;
+}
+.db-home-img-student{
+    margin-top: 15%;
+    margin-left: 15%;
+    width: 650px;
+}
+.db-intro{
+    height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.db-home-text, .db-home-img{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    color: #112D4E;
+    flex-wrap: wrap;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* CSS For the button*/
+.button-64 {
+  align-items: center;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  margin-top: 2rem;
+}
+
+.button-64:active,
+.button-64:hover {
+  outline: 0;
+}
+
+.button-64 span {
+  background-color: rgb(5, 6, 45);
+  padding: 16px 24px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.button-64:hover span {
+  background: none;
+}
+
+@media (min-width: 768px) {
+  .button-64 {
+    font-size: 24px;
+    min-width: 196px;
+  }
+}
