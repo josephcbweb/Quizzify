@@ -12,38 +12,26 @@
     />
     {{ bootstrap.load_css() }}
     <link rel="stylesheet" href="static/css/styles.css" />
+    
   </head>
   <body class="db-body">
-    <nav
-      class="navbar navbar-expand-lg bg-body-tertiary rounded db-nav"
-      aria-label="Eleventh navbar example"
-    >
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Eleventh navbar example">
       <div class="container">
-        <a class="navbar-brand db-brand" href="{{url_for('home')}}">Quizzify</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarsExample09"
-          aria-controls="navbarsExample09"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <a class="navbar-brand brand" href="{{url_for('home')}}">Quizzify</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
+  
         <div class="collapse navbar-collapse" id="navbarsExample09">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <!-- Change 'me-auto' to 'ms-auto' -->
             <li class="db-nav-item">
-              <a class="active db-nav-link" aria-current="page" href="#home"
-                >Home</a
-              >
+              <a class="nav-link" href="#Features">Leaderboard</a>
             </li>
             <li class="db-nav-item">
-              <a class="db-nav-link" href="#Features">Leaderboard</a>
+              <a class="nav-link" href="#About">History</a>
             </li>
             <li class="db-nav-item">
-              <a class="db-nav-link" href="#About">History</a>
+              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
             </li>
           </ul>
         </div>
@@ -52,14 +40,15 @@
     <section class="db-home container">
         <div class="db-intro">
             <div class="db-home-text">
-                <p>What are you waiting for? Whether you’re a trivia master or just looking to learn something new</p>
-                <p>It's time to put your skills to the test. Pick a category, dive in, and let's see how you stack up!</p>
-                <button class="button-64" role="button"><span class="text">Take Your Quiz Now! 🧠</span></button>
-            </div class="db-home-img">
-            <div>
-                <img src="{{ url_for('static',filename='/images/student.png')}}" alt="student sitting with laptop" class="db-home-img-student">
+                <h2>Hello {{(current_user.name).title()}}!</h2>
+                <p>Ready to test your trivia skills? <br>Choose a category, dive in, and see how you stack up!</p>
+                <button class="button-64" role="button"><span class="text">Take Your Quiz Now 🧠</span></button>
+            </div>
+            <div class="db-img">
+                <img src="{{ url_for('static',filename='/images/brain.gif')}}" alt="student sitting with laptop" class="db-home-img-student">
             </div>
         </div>
     </section>
+    {{ bootstrap.load_js() }}
   </body>
 </html>

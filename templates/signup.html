@@ -15,23 +15,22 @@
   </head>
   <body>
     <section class="ls-page">
-      <nav
-        class="navbar navbar-expand-lg bg-body-tertiary rounded"
-        aria-label="Eleventh navbar example"
-      >
-        <div class="container">
-          <a class="navbar-brand brand" href="{{url_for('home')}}">Quizzify</a>
-        </div>
-      </nav>
       <div class="ls-card">
-        <div class="ls-items">
-          <h3>Sign Up</h3>
-          {{ form.csrf_token }}
-          <form action="{{url_for('signup')}}" method="POST">
-            <p>{{ form.username(placeholder="Username", class='ls-input')}}</p>
-            <p>{{ form.email(placeholder="Email", class='ls-input')}}</p>
-            <p>{{ form.password(placeholder="Password", class='ls-input')}}</p>
-            {{ form.submit(class="ls-button")}}
+        <!-- <div>
+          <h2>Sign in to challenge your knowledge and track your progress</h2>
+          <h2>Your quiz journey starts here!</h2>
+        </div> -->
+        <div class="ls-items sign-div">
+          <img src="{{url_for('static',filename='images/pointing.png')}}" alt="" class="pointing">
+          <a class="brand" href="{{url_for('home')}}">Quizzify</a>
+          <p class="info" style="font-size: 2rem;">Get started</p>
+          <p class="info">Sign up to unlock your quiz potential</p>
+          <form action="{{url_for('signup')}}" class="ls-form" method="POST">
+              {{ form.csrf_token }}
+              <p>{{ form.username(placeholder="Username", class='ls-input sign-form')}}</p>
+              <p>{{ form.email(placeholder="Email", class='ls-input sign-form')}}</p>
+              <p>{{ form.password(placeholder="Password", class='ls-input sign-form')}}</p>
+              <button class="button-85" role="button">Sign Up</button>
           </form>
           {% with messages = get_flashed_messages() %}
             {% if messages %}

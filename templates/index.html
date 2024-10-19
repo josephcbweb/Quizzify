@@ -33,18 +33,30 @@
               <li class="nav-item">
                 <a class="nav-link" href="#About">About</a>
               </li>
+              {% if current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+              </li>
+              {% endif %}
+
             </ul>
           </div>
         </div>
       </nav>
       <div class="container home-container">
         <div class="home-text">
+          {% if current_user.is_authenticated %}
+          <h1>Hello <span class="Quizzify">{{(current_user.name).title()}}</span></h1>
+          <p>Welcome back! You're already logged in—jump right in and take on more quizzes. Let’s see what new knowledge you can unlock today!</p>
+          {% else %}
           <h1>Discover <span class="Quizzify">Quizzify</span></h1>
           <p>
             Your Ultimate Destination for Fun, Interactive Quizzes! Challenge
             Yourself With Random Questions Across Different Categories and Boost
             Your Knowledge While Having Fun!
           </p>
+          {% endif %}
+          {% if not current_user.is_authenticated %}
           <div class="text-start home-buttons mt-sm-4">
             <a href="{{ url_for('login')}}">
               <button type="button" class="button-56 me-4">Login</button>
@@ -53,6 +65,11 @@
               <button type="button" class="button-56 mt-sm-4">Sign-up</button>
             </a>
           </div>
+          {% else: %}
+          <a href="{{ url_for('dashboard') }}" class="link-underline-opacity-0">
+            <button type="button" class="button-56 mt-sm-4">Ready, Set, Quiz</button>
+          </a>
+          {% endif %}
         </div>
         <img
           class="home-img"
@@ -76,7 +93,7 @@
               <div
                 class="d-flex flex-column h-100 p-5 pb-3 text-light text-shadow-1"
               >
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-2 fw-bold">
+                <h3 class="pt-5 mt-5 mb-4 display-6 lh-2 fw-bold text-dark">
                   Select your favorite category to tailor your quiz experience!
                 </h3>
               </div>
@@ -88,7 +105,7 @@
               style="background-image: url('static/images/track.jpg')"
             >
               <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-2 fw-bold text-danger">
+                <h3 class="pt-5 mt-3 mb-4 display-6 lh-2 fw-bold text-dark">
                   Track your progress as you answer questions and strive for the
                   highest score!
                 </h3>
@@ -103,7 +120,7 @@
               <div
                 class="d-flex flex-column h-100 p-5 pb-3 text-dark text-shadow-1"
               >
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-2 fw-bold">
+                <h3 class="pt-5 mt-3 mb-4 display-6 lh-2 fw-bold text-dark">
                   Check out the top performers and see how you rank against your
                   peers!
                 </h3>
@@ -119,7 +136,7 @@
           <div class="main-about container">
             <div class="text-about">
               <h2>
-                Join us and <span class="Quizzify">Elevate</span> your knowledge!
+                Join us and <span class="Quizzify">Elevate</span> your knowledge
               </h2>
               <br />
               <p>

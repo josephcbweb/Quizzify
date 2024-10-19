@@ -7,6 +7,8 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user, login_required
+import time
+
 
 app = Flask(__name__)
 Bootstrap5(app)
@@ -56,11 +58,17 @@ def signup():
                             password=hashed_password)
             db.session.add(new_user)
             db.session.commit()
-            #login_user(new_user)
-            return redirect(url_for('dashboard'))
+            login_user(new_user)
+            return redirect(url_for('thankyou'))
         else:
             flash("Account already exist. Please login")
     return render_template('signup.html', form=form)
+
+@app.route('/thank-you',methods=["GET","POST"])
+@login_required
+def thankyou():
+    return render_template('thankyou.html')
+
 
 @app.route("/login",methods=["GET","POST"])
 def login():
@@ -70,17 +78,24 @@ def login():
         user = db.session.execute(db.select(User).where(User.email== form.email.data)).scalar()
         if user:
             if check_password_hash(user.password, typed_password):
-                #login_user(user)
+                login_user(user)
                 return redirect(url_for('dashboard'))
             else:
-                flash("Check your password and try againz.")
+                flash("Check your password and try again.")
         else:
-            flash("Email doesn't exist. Please sign up!")
+            flash("Account doesn't exist. Please sign up!")
     return render_template("login.html", form=form)
 
 @app.route('/dashboard',methods=["GET","POST"])
+@login_required
 def dashboard():
     return render_template("dashboard.html")
+
+@app.route('/logout',methods=["POST","GET"])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 
 if __name__ == '__main__':

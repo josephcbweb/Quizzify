@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanks</title>
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="static/css/styles.css" />
+</head>
+<body style="background-color:#F2EFEA;">
+    <div class="thank-you">
+        <a class="brand" href="{{url_for('home')}}">Quizzify</a>
+        <img src="{{url_for('static',filename='./images/thank.gif')}}" alt="a text saying thank you" class="thank-gif">
+        <h2>Thank You For Signing Up</h2>
+        <a href="{{ url_for('dashboard') }}" class="link-underline-opacity-0">
+            <button type="button" class="button-56 mt-sm-4">Go-To Dashboard</button>
+        </a>
+    </div>
+</body>
+</html>
