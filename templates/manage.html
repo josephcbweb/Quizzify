@@ -1,0 +1,78 @@
+{% from 'bootstrap5/form.html' import render_form %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in</title>
+    <link
+      rel="shortcut icon"
+      href="static/images/fav.png"
+      type="image/x-icon"
+    />
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="static/css/styles.css" />
+  </head>
+  <body>
+    <nav style="text-align: center;">
+      <a class="manage-brand" href="{{url_for('home')}}">Quizzify</a>
+    </nav>
+    <section class="ac-page">
+      <div class="ac-card">
+        
+        <div class="manage-items">
+          <h2 style="margin-bottom: 60px;" class="brand">Add a category</h2>
+          <form action="{{url_for('manage')}}" class="ls-form" method="POST">
+              {{ form.csrf_token }}
+              <p>{{ form.category_name(placeholder="Category Name", class='ls-input')}}</p>
+              <p>{{ form.api_id(placeholder="API ID", class='ls-input')}}</p>
+              <button class="button-85" role="button">Add Category</button>
+          </form>
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <p class="flash">{{ message }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+            {% if form.api_id.errors %}
+            {% for error in form.category_id.errors %}
+                <p class="flash">{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+            {% if form.category_name.errors %}
+            {% for error in form.category_id.errors %}
+                <p class="flash">{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+      </div>
+      <div class="ec-card">
+            <div class="ec-items ">
+              {%if category_list:%}
+                <table class="table table-striped">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Category Name</th>
+                            <th scope="col">Category Id</th>
+                            <th scope="col">Delete</th>
+                            <th scope="col">Edit</th>
+                        </tr>
+                    </thead>
+                    {%for category in category_list: %}
+                    <tr>
+                        <td>{{category.category_name}}</td>
+                        <td>{{category.api_id}}</td>
+                        <td><a href="{{url_for('delete_category', category_id=category.id)}}" class="delete-button">❌</a></td>
+                        <td><a href="{{url_for('manage_questions', category_id=category.id)}}" class="delete-button">🔗</a></td></td>
+                    </tr>
+                    {%endfor %}
+                </table>
+              {%else: %}
+               <h3>Looks like a category-free zone! Let's add some!</h3>
+               {%endif%}
+            </div>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ready</title>
+    <link
+    rel="shortcut icon"
+    href="static/images/fav.png"
+    type="image/x-icon"
+    />
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="static/css/styles.css" />
+</head>
+<body>
+    <nav class="quiz-nav nav container">
+        <a class="brand" href="{{url_for('home')}}">Quizzify</a>
+        <p>{{current_user.name.title()}}</p>
+    </nav>
+    <div class="qs-div">
+        <div>
+            <a href="{{url_for('quizzing',quiz_id=quiz_id)}}" style="text-decoration: none;" ><button class="button-64" role="button"><span class="text">Start Quiz</span></button></a>
+        </div>
+    </div>
+</body>
+</html>

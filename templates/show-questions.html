@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Questions</title>
+    <link
+    rel="shortcut icon"
+    href="static/images/fav.png"
+    type="image/x-icon"
+    />
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="static/css/styles.css" />
+</head>
+<body>
+    <nav style="text-align: center;">
+        <a class="manage-brand" href="{{url_for('home')}}">Quizzify</a>
+    </nav>
+    <div class="container">
+        <h2 style="margin: 40px 0;">{{ category.category_name }}</h2>
+        {%if category.questions:%}
+        <div class="question-table">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Question</th>
+                        <th scope="col">Options</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                {%for question in category.questions: %}
+                <tr>
+                    <td scope="row">{{ loop.index }}</td>
+                    <td>{{question.question_text}}</td>
+                    <td><ul>
+                            {% for option in question.options %}
+                                {% if option.is_correct: %}
+                                    <li style="color: green;" class="options" style="list-style-type: none;">{{option.option_text}}</li>
+                                {% else %}
+                                    <li style="color: red;" class="options" style="list-style-type: none;">{{option.option_text}}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td><a href="{{url_for('show_question', question_id = question.id, category_id = category.id)}}" class="delete-button">🔗</a></td>
+                    <td><a href="{{url_for('delete_question', question_id = question.id, category_id = category.id)}}" class="delete-button">❌</a></td>
+                </tr>
+                {%endfor %}
+            </table>
+        </div>
+        {%else: %}
+            <h3 style="margin: 50px 0;">Uh-oh! This category is on a question diet! 🥳❓</h3>
+        {%endif%}
+        <div class="question-buttons">
+            <a href="{{ url_for('add_question', category_id = category.id) }}" class="link-underline-opacity-0">
+                <button type="button" class="button-56 mt-sm-4">Add Question</button>
+            </a>
+            <a href="{{ url_for('auto_populate', api_id = category.api_id) }}" class="link-underline-opacity-0" style="margin: 0 50px;">
+                <button type="button" class="button-56 mt-sm-4">Auto Populate</button>
+            </a>
+            <a href="{{ url_for('manage') }}" class="link-underline-opacity-0" style="margin-top: 40px;">
+                <button type="button" class="button-56 mt-sm-4">Go-to Category Page</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

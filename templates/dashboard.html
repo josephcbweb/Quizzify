@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hi {{current_user.name}}</title>
+    <title>Hi {{(current_user.name).split(" ")[0].title()}}</title>
     <link
       rel="shortcut icon"
       href="static/images/fav.png"
@@ -40,9 +40,12 @@
     <section class="db-home container">
         <div class="db-intro">
             <div class="db-home-text">
-                <h2>Hello {{(current_user.name).title()}}!</h2>
+                <h2>Hello {{(current_user.name).split(" ")[0].title()}}</h2>
                 <p>Ready to test your trivia skills? <br>Choose a category, dive in, and see how you stack up!</p>
-                <button class="button-64" role="button"><span class="text">Take Your Quiz Now 🧠</span></button>
+                <a href="{{url_for('category')}}"><button class="button-64" role="button"><span class="text">Take Your Quiz Now 🧠</span></button></a>
+                {% if current_user.id == 1%}
+                <a href="{{url_for('manage')}}" class="category-link" ><button class="button-64" role="button"><span class="text">Manage Categories & Questions 🛠️</span></button></a>
+                {% endif %}
             </div>
             <div class="db-img">
                 <img src="{{ url_for('static',filename='/images/brain.gif')}}" alt="student sitting with laptop" class="db-home-img-student">

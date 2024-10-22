@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Category</title>
+    <link
+    rel="shortcut icon"
+    href="static/images/fav.png"
+    type="image/x-icon"
+    />
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="static/css/styles.css" />
+</head>
+<body id="Category">
+    <section class="category">
+        <div class="container">
+            <h3>Select your category</h3>
+            <div class="category-text">
+                <div class="category-container"> 
+                    {%for category in category_list: %}
+                                <a href="{{url_for('ready',category_id=category.id)}}" class="category-link" style="order: {{category.id}} ">
+                                <div class="category-item">
+                                <button class="button-86" role="button">{{category.category_name}}</button></div></a>
+                    {%endfor %}
+                </div>
+            </div>  
+        </div>
+    </section>
+</body>
+</html>

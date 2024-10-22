@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ready</title>
+    <link
+    rel="shortcut icon"
+    href="static/images/fav.png"
+    type="image/x-icon"
+    />
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="static/css/styles.css" />
+</head>
+<body>
+    <nav style="text-align: center;">
+        <a class="manage-brand" href="{{url_for('home')}}">Quizzify</a>
+    </nav>
+    <div class="container populate-container">
+        <form action="{{url_for('auto_populate', api_id=api_id)}}" method="POST">
+            {{ form.quantity.label(class_ = "fw-bold mb-3") }}
+            {{ form.quantity(class_="form-control") }}
+            <button type="submit" class="button-56 mt-sm-4">Submit</button>
+        </form>
+        {% if form.quantity.errors %}
+        {% for error in form.quantity.errors %}
+          <p class="flash">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

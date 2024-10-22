@@ -27,10 +27,11 @@
           <p class="info">Sign up to unlock your quiz potential</p>
           <form action="{{url_for('signup')}}" class="ls-form" method="POST">
               {{ form.csrf_token }}
-              <p>{{ form.username(placeholder="Username", class='ls-input sign-form')}}</p>
+              <p>{{ form.username(placeholder="Full Name", class='ls-input sign-form')}}</p>
               <p>{{ form.email(placeholder="Email", class='ls-input sign-form')}}</p>
               <p>{{ form.password(placeholder="Password", class='ls-input sign-form')}}</p>
-              <button class="button-85" role="button">Sign Up</button>
+              <p>{{ form.confirm(placeholder="Confirm Password", class='ls-input sign-form')}}</p>
+              <button class="button-85">Sign Up</button>
           </form>
           {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -39,6 +40,11 @@
               {% endfor %}
             {% endif %}
           {% endwith %}
+          {% if form.password.errors %}
+              {% for error in form.password.errors %}
+                <p class="flash">{{ error }}</p>
+              {% endfor %}
+          {% endif %}
         </div>
       </div>
     </section>

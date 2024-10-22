@@ -46,7 +46,7 @@
       <div class="container home-container">
         <div class="home-text">
           {% if current_user.is_authenticated %}
-          <h1>Hello <span class="Quizzify">{{(current_user.name).title()}}</span></h1>
+          <h1>Hello <span class="Quizzify">{{(current_user.name).split(" ")[0].title()}}</span></h1>
           <p>Welcome back! You're already logged in—jump right in and take on more quizzes. Let’s see what new knowledge you can unlock today!</p>
           {% else %}
           <h1>Discover <span class="Quizzify">Quizzify</span></h1>
@@ -140,14 +140,20 @@
               </h2>
               <br />
               <p>
-                Join Quizzify today and unlock a vast array of quizzes tailored to
-                your interests and skill level. Whether you're looking to deepen
-                your knowledge, prepare for exams, or simply enjoy some friendly
-                competition, our platform has something for everyone. With
-                personalized challenges and real-time rankings, you can track your
-                progress and see how you stack up against others. Don’t miss out on
-                the fun — start your quiz journey now and become a part of our
-                growing community of quiz enthusiasts!
+                <p style="font-size: 15px; color: #192E35;">
+                  Welcome to <strong>Quizzify</strong>, where learning meets fun! Whether you're a trivia enthusiast or just looking to test your knowledge, we've got you covered. Explore a variety of categories, each filled with exciting questions to challenge your mind.
+              </p>
+              
+              <h3 style="color: #192E35;">How it works:</h3>
+              <ul style="font-size: 15px; color: #22377c; margin-left: 20px;">
+                  <li>Select a category that interests you.</li>
+                  <li>Answer a series of multiple-choice questions.</li>
+                  <li>Track your score and improve with each attempt!</li>
+              </ul>
+      
+              <p style="font-size: 15px; color: #192E35;">
+                  From science to pop culture, history to technology—there’s something for everyone. Let’s get quizzing!
+              </p>
               </p>
             </div>
           </div>

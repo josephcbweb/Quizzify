@@ -1,0 +1,67 @@
+{% from "bootstrap5/form.html" import render_form %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Question</title>
+    <link
+    rel="shortcut icon"
+    href="static/images/fav.png"
+    type="image/x-icon"
+    />
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="static/css/styles.css" />
+</head>
+<body>
+    <nav style="text-align: center;">
+        <a class="manage-brand" href="{{url_for('home')}}">Quizzify</a>
+    </nav>
+    <div class="container">
+        <h2 style="margin: 50px 0;">{{ category.category_name }}</h2>
+        <form
+        {% if not edit: %} 
+        action="{{url_for('add_question', category_id=category.id)}}"
+        {% else: %}
+        action="{{url_for('show_question', category_id=category.id,question_id=question_id)}}"
+        {% endif %}
+        method="POST">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{ form.question_text.label }}
+                {{ form.question_text(class_="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.option1.label }}
+                {{ form.option1(class_="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.option2.label }}
+                {{ form.option2(class_="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.option3.label }}
+                {{ form.option3(class_="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.option4.label }}
+                {{ form.option4(class_="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.correct.label }} <p style="font-size: .9rem;">Click to reveal dropdown</p>
+                {{ form.correct(class_="form-control") }}
+            </div>
+            <div class="form-group">
+                <button class="button-56" type="submit">Submit</button>
+            </div>
+        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <p class="flash">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
