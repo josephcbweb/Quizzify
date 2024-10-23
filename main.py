@@ -324,15 +324,32 @@ def delete_question():
 @login_required
 @app.route('/ready', methods=["GET","POST"])
 def ready():
-    quiz_id = request.args.get('category_id')
-    return render_template('ready.html',quiz_id=quiz_id)
+    category_id = request.args.get('category_id')
+    return render_template('ready.html',category_id=category_id)
 
 @login_required
 @app.route('/quizzing',methods=["POST","GET"])
 def quizzing():
-    quiz_id = request.args.get('quiz_id')
-    return render_template('quiz.html')
+    category_id = request.args.get('category_id')
+    questions = db.get_or_404(Category, category_id).questions
+    return render_template('quiz.html',questions=questions,category_id=category_id)
 
+@login_required
+@app.route('/submit_quiz', methods=['POST'])
+def submit_quiz():
+    score = 0
+    answers = request.form
+    category_id = request.args.get('category_id')
+    total_no_of_questions = len(db.get_or_404(Category, category_id).questions)
+    for qid, user_answer in answers.items():
+        correct_option = db.session.execute(
+            db.select(Options.option_text)
+            .where(Options.question_id == qid)
+            .where(Options.is_correct == True)
+        ).scalar()
+        if user_answer == correct_option:
+            score += 1
+    return render_template('result.html', score=score, total=total_no_of_questions)
 
 @app.route('/logout',methods=["POST","GET"])
 @login_required

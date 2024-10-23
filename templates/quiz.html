@@ -10,6 +10,9 @@
     type="image/x-icon"
     />
     {{ bootstrap.load_css() }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/css/styles.css" />
 </head>
 <body>
@@ -17,5 +20,30 @@
         <a class="brand" href="{{url_for('home')}}">Quizzify</a>
         <p>{{current_user.name.title()}}</p>
     </nav>
+    <div class="container quiz-container">
+        <h2 style="text-align: center;">Quiz On</h2>
+        <form method="POST" action="{{url_for('submit_quiz', category_id = category_id)}}">
+            {% for question in questions %}
+                <div class="question-block">
+                    <h3>{{loop.index}}. {{ question.question_text }}</h3>
+                    <div class="radio-group">
+                        <input type="radio" class="form-check-input" name="{{ question.id }}" value="{{ question.options[0].option_text }}"> <p>{{ question.options[0].option_text }}</p>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" class="form-check-input" name="{{ question.id }}" value="{{ question.options[1].option_text }}"> <p>{{ question.options[1].option_text }}</p>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" class="form-check-input" name="{{ question.id }}" value="{{ question.options[2].option_text }}"> <p>{{ question.options[2].option_text }}</p>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" class="form-check-input" name="{{ question.id }}" value="{{ question.options[3].option_text }}"> <p>{{ question.options[3].option_text }}</p>
+                    </div>                    
+                </div>
+            {% endfor %}
+            <div class=" button-end">
+                <button class="button-56 mt-sm-4 mt-3 mb-5" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
