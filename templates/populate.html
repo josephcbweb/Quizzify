@@ -18,8 +18,10 @@
     </nav>
     <div class="container populate-container">
         <form action="{{url_for('auto_populate', api_id=api_id)}}" method="POST">
-            {{ form.quantity.label(class_ = "fw-bold mb-3") }}
+            {{ form.quantity.label(class_ = "fw-bold mb-2") }}
             {{ form.quantity(class_="form-control") }}
+            {{ form.difficulty.label(class_ = "fw-bold mb-2 mt-3")}}
+            {{ form.difficulty(class_="form-control fw-bold")}}
             <button type="submit" class="button-56 mt-sm-4">Submit</button>
         </form>
         {% if form.quantity.errors %}

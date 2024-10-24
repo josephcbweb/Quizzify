@@ -346,15 +346,15 @@ html {
 }
 .think{
     position: absolute;
-    right:95%;
+    right:99%;
     top: -9%;
     z-index: -1;
 }
 .point-2{
-    height: 65%;
+    height: 63%;
     position: absolute;
-    top: 35%;
-    right: -73%;
+    top: 37%;
+    right: -77%;
 }
 .pointing{
     height: 85%;
@@ -499,6 +499,7 @@ html {
     color: tomato !important;
     position: relative;
     margin: 0;
+    top: 35px;
 }
 .sign-div .flash{
     position: absolute;
@@ -508,6 +509,12 @@ html {
     width: 100%;
 }
 
+.log-in .flash{
+    position: absolute;
+    top: 390px;
+    right: 0px;
+    width: 100%;
+}
 /* Dashboard Page */
 
 

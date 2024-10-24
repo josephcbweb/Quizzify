@@ -25,5 +25,5 @@ class QuestionForm(FlaskForm):
     correct = SelectField('Correct Option No', choices=[(1,1),(2,2),(3,3),(4,4)],validators=[DataRequired()])
 
 class PopulateForm(FlaskForm):
-    quantity = IntegerField('No of question to be fetched', validators=[DataRequired(),NumberRange(min=15, max=50)])
-
+    quantity = IntegerField('No of question to be fetched', validators=[DataRequired(),NumberRange(min=10, max=50)])
+    difficulty = SelectField("Choose Difficulty", choices=[('easy', 'Easy'),('medium','Medium'),('hard', 'Hard')])

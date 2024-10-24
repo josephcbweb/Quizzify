@@ -198,7 +198,8 @@ def auto_populate():
             db.session.delete(question)
             db.session.commit()
         quantity = form.quantity.data
-        url = f"https://opentdb.com/api.php?amount={quantity}&category={api_id}&difficulty=easy&type=multiple"
+        difficulty = form.difficulty.data
+        url = f"https://opentdb.com/api.php?amount={quantity}&category={api_id}&difficulty={difficulty}&type=multiple"
         response = requests.get(url).json()
         for item in response["results"]:
             question = html.unescape(item["question"])
@@ -315,8 +316,7 @@ def delete_question():
     question_to_be_deleted = db.get_or_404(Questions,questions_id)
     db.session.delete(question_to_be_deleted)
     db.session.commit()
-    flash('Successfully Deleted Question')
-    return redirect(url_for('manage'))
+    return redirect(url_for('manage_questions',category_id=category_id))
 
 
 
