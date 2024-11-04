@@ -1,98 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quizzify</title>
-    <link
-      rel="shortcut icon"
-      href="static/images/fav.png"
-      type="image/x-icon"
-    />
-    {{ bootstrap.load_css() }}
 
-    <link rel="stylesheet" href="static/css/styles.css" />
-  </head>
-  <body>
-    <section id="home">
-      <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Eleventh navbar example">
-        <div class="container">
-          <a class="navbar-brand brand" href="{{url_for('home')}}">Quizzify</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-    
-          <div class="collapse navbar-collapse" id="navbarsExample09">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <!-- Change 'me-auto' to 'ms-auto' -->
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#home">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#Features">Features</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#About">About</a>
-              </li>
-              {% if current_user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
-              </li>
-              {% endif %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quizzify</title>
+  <link rel="shortcut icon" href="static/images/fav.png" type="image/x-icon" />
+  {{ bootstrap.load_css() }}
 
-            </ul>
-          </div>
+  <link rel="stylesheet" href="static/css/styles.css" />
+</head>
+
+<body>
+  <section id="home">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded index-nav" aria-label="Eleventh navbar example">
+      <div class="container">
+        <a class="navbar-brand brand" href="{{url_for('home')}}">Quizzify</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09"
+          aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('leaderboard')}}">Leaderboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#About">About</a>
+            </li>
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+            </li>
+            {% endif %}
+
+          </ul>
         </div>
-      </nav>
-      <div class="container home-container">
-        <div class="home-text">
-          {% if current_user.is_authenticated %}
-          <h1>Hello <span class="Quizzify">{{(current_user.name).split(" ")[0].title()}}</span></h1>
-          <p>Welcome back! You're already logged in—jump right in and take on more quizzes. Let’s see what new knowledge you can unlock today!</p>
-          {% else %}
-          <h1>Discover <span class="Quizzify">Quizzify</span></h1>
-          <p>
-            Your Ultimate Destination for Fun, Interactive Quizzes! Challenge
-            Yourself With Random Questions Across Different Categories and Boost
-            Your Knowledge While Having Fun!
-          </p>
-          {% endif %}
-          {% if not current_user.is_authenticated %}
-          <div class="text-start home-buttons mt-sm-4">
-            <a href="{{ url_for('login')}}">
-              <button type="button" class="button-56 me-4">Login</button>
-            </a>
-            <a href="{{ url_for('signup') }}" class="link-underline-opacity-0">
-              <button type="button" class="button-56 mt-sm-4">Sign-up</button>
-            </a>
-          </div>
-          {% else: %}
-          <a href="{{ url_for('dashboard') }}" class="link-underline-opacity-0">
-            <button type="button" class="button-56 mt-sm-4">Ready, Set, Quiz</button>
-          </a>
-          {% endif %}
-        </div>
-        <img
-          class="home-img"
-          src="static/images/home-top.png"
-          alt="students learning"
-        />
       </div>
-    </section>
+    </nav>
+    <div class="container home-container">
+      <div class="home-text">
+        {% if current_user.is_authenticated %}
+        <h1>Hello <span class="Quizzify">{{(current_user.name).split(" ")[0].title()}}</span></h1>
+        <p>Welcome back! You're already logged in—jump right in and take on more quizzes. Let’s see what new knowledge
+          you can unlock today!</p>
+        {% else %}
+        <h1>Discover <span class="Quizzify">Quizzify</span></h1>
+        <p>
+          Your Ultimate Destination for Fun, Interactive Quizzes! Challenge
+          Yourself With Random Questions Across Different Categories and Boost
+          Your Knowledge While Having Fun!
+        </p>
+        {% endif %}
+        {% if not current_user.is_authenticated %}
+        <div class="text-start home-buttons mt-sm-4">
+          <a href="{{ url_for('login')}}">
+            <button type="button" class="button-56 me-4">Login</button>
+          </a>
+          <a href="{{ url_for('signup') }}" class="link-underline-opacity-0">
+            <button type="button" class="button-56 mt-sm-4">Sign-up</button>
+          </a>
+        </div>
+        {% else: %}
+        <a href="{{ url_for('dashboard') }}" class="link-underline-opacity-0">
+          <button type="button" class="button-56 mt-sm-4">Ready, Set, Quiz</button>
+        </a>
+        {% endif %}
+      </div>
+      <img class="home-img" src="static/images/home-top.png" alt="students learning" />
+    </div>
+  </section>
 
-    <!-- Features section -->
-    <section id="Features">
+  <!-- Features section -->
+  <section id="Features">
+    <div class="feature-container">
       <div class="container px-4 py-5" id="custom-cards">
-        <h2 class="pb-2 border-bottom brand fw-bold fs-1">Features</h2>
-
+        <h2 class="pb-2 mb-5 border-bottom brand fw-bold fs-1">Features</h2>
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
           <div class="col">
-            <div
-              class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-              style="background-image: url('/static/images/select.jpg')"
-            >
-              <div
-                class="d-flex flex-column h-100 p-5 pb-3 text-light text-shadow-1"
-              >
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+              style="background-image: url('/static/images/select.jpg')">
+              <div class="d-flex flex-column h-100 p-5 pb-3 text-light text-shadow-1">
                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-2 fw-bold text-dark">
                   Select your favorite category to tailor your quiz experience!
                 </h3>
@@ -100,10 +92,8 @@
             </div>
           </div>
           <div class="col">
-            <div
-              class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-              style="background-image: url('static/images/track.jpg')"
-            >
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+              style="background-image: url('static/images/track.jpg')">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
                 <h3 class="pt-5 mt-3 mb-4 display-6 lh-2 fw-bold text-dark">
                   Track your progress as you answer questions and strive for the
@@ -113,13 +103,9 @@
             </div>
           </div>
           <div class="col">
-            <div
-              class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-              style="background-image: url('static/images/winner.jpg')"
-            >
-              <div
-                class="d-flex flex-column h-100 p-5 pb-3 text-dark text-shadow-1"
-              >
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+              style="background-image: url('static/images/winner.jpg')">
+              <div class="d-flex flex-column h-100 p-5 pb-3 text-dark text-shadow-1">
                 <h3 class="pt-5 mt-3 mb-4 display-6 lh-2 fw-bold text-dark">
                   Check out the top performers and see how you rank against your
                   peers!
@@ -129,40 +115,45 @@
           </div>
         </div>
       </div>
-    </section>
-    <!-- About -->
-    <section id="About">
-        <div class="about container" >
-          <div class="main-about container">
-            <div class="text-about">
-              <h2>
-                Join us and <span class="Quizzify">Elevate</span> your knowledge
-              </h2>
-              <br />
-              <p>
-                <p style="font-size: 15px; color: #192E35;">
-                  Welcome to <strong>Quizzify</strong>, where learning meets fun! Whether you're a trivia enthusiast or just looking to test your knowledge, we've got you covered. Explore a variety of categories, each filled with exciting questions to challenge your mind.
-              </p>
-              
-              <h3 style="color: #192E35;">How it works:</h3>
-              <ul style="font-size: 15px; color: #22377c; margin-left: 20px;">
-                  <li>Select a category that interests you.</li>
-                  <li>Answer a series of multiple-choice questions.</li>
-                  <li>Track your score and improve with each attempt!</li>
-              </ul>
-      
-              <p style="font-size: 15px; color: #192E35;">
-                  From science to pop culture, history to technology—there’s something for everyone. Let’s get quizzing!
-              </p>
-              </p>
-            </div>
-          </div>
-          <div class="about-img">
-            <img src="static/images/about.png" alt="Students jumping happily" />
-          </div>
-        </div>
-    </section>
-    {{ bootstrap.load_js() }}
+    </div>
+    
+  </section>
+  <!-- About -->
+  <section id="About">
+    <div class="about container">
+      <div class="main-about container">
+        <div class="text-about">
+          <h2>
+            Join us and <span class="Quizzify">Elevate</span> your knowledge
+          </h2>
+          <br />
+          <p>
+          <p style="font-size: 15px; color: #192E35;">
+            Welcome to <strong>Quizzify</strong>, where learning meets fun! Whether you're a trivia enthusiast or just
+            looking to test your knowledge, we've got you covered. Explore a variety of categories, each filled with
+            exciting questions to challenge your mind.
+          </p>
 
-  </body>
+          <h3 style="color: #192E35;">How it works:</h3>
+          <ul style="font-size: 15px; color: #22377c; margin-left: 20px;">
+            <li>Select a category that interests you.</li>
+            <li>Answer a series of multiple-choice questions.</li>
+            <li>Track your score and improve with each attempt!</li>
+          </ul>
+
+          <p style="font-size: 15px; color: #192E35;">
+            From science to pop culture, history to technology—there’s something for everyone. Let’s get quizzing!
+          </p>
+          </p>
+        </div>
+      </div>
+      <div class="about-img">
+        <img src="static/images/about.png" alt="Students jumping happily" />
+      </div>
+    </div>
+  </section>
+  {{ bootstrap.load_js() }}
+
+</body>
+
 </html>

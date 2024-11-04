@@ -60,12 +60,7 @@ html {
     justify-content: space-between;
     align-items: center;
 }
-/* 
-.home-container{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 100%;
-} */
+
 .home-img{
     width: 60%;
     position: relative;
@@ -143,8 +138,11 @@ html {
 }
 
 #Features{
-    height: 80vh;
+    height: 100vh;
     background-color: #FDF6EE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* About */
@@ -204,7 +202,7 @@ html {
         opacity: 80%;
     }
     .home-container{
-        height: 70vh;
+        height: 90vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -246,15 +244,26 @@ html {
     .think, .point-2{
         display: none;
     }
+    .brand{
+        padding-left: 10px;
+    }
 }
 
 @media (min-width: 868px) and (max-width: 992px){
     #home{
-        height: fit-content;
         margin: 0 5%;
     }
     #Features{
         height: fit-content;
+    }
+    .home-container{
+        height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .about{
+        padding-top: 80px;
     }
 }
 @keyframes move {
@@ -278,13 +287,13 @@ html {
 .thank-you h2{
     color: black;
     font-size: 2rem;
+    margin-bottom: 20px;
 }
 .thank-you p{
     font-size: 1rem;
 }
 .thank-gif{
-    border-radius: 50%;
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 50px;
 }
 
@@ -616,7 +625,7 @@ html {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
     }
-    .db-home-img-student{
+    .db-brain{
         width:80%;
         margin: 0;
     }
@@ -649,11 +658,15 @@ html {
     
 }
 @media (max-width: 533px){
+    .db-body{
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
     .db-intro{
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
     }
-    .db-home-img-student{
+    .db-brain{
         width:80%;
     }
     .db-img{
@@ -689,10 +702,12 @@ html {
 
 /* Category Page */
 
-#Category{
-    /* background-image: url(../images/grad.jpg);
-    background-size: cover;  */
-    /* background-color: #E8D4F5; */
+.finish{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
 }
 .category{
     height: max-content;
@@ -814,7 +829,7 @@ html {
     transform: translate(0%, 0%);
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(144deg, #F2EFEA, #F9A8D4 50%, #7B6FF0 90%);
+    background-image: linear-gradient(144deg, #f0e6d5, #F9A8D4 50%, #6b5fd4 90%);
     border-radius: 10px;
   }
   
@@ -822,7 +837,7 @@ html {
     transform: translate(10px, 10px);
     width: 35px;
     height: 35px;
-    background: #ffffff15;
+    background: rgba(255, 255, 255, 0.212);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border-radius: 50px;
@@ -832,7 +847,7 @@ html {
     transform: translate(4.2%, 10%);
     width: 110%;
     height: 110%;
-    background-image: linear-gradient(144deg, #F2EFEA, #F9A8D4 50%, #7B6FF0 90%);
+    background-image: linear-gradient(144deg, #f0e6d5, #F9A8D4 50%, #6b5fd4 90%);
 }
   
   .button-86:hover::after {
@@ -887,6 +902,18 @@ html {
     border-radius: 10px;
 }
 
+/* question display page */
+
+.questions-body{
+    font-family: "Nunito Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100,
+      "YTLC" 500;
+}
+
 /* quiz page */
 
 .quiz-nav{
@@ -900,17 +927,48 @@ html {
     margin-top: 19.5px;
 }
 
+/* ready page */
 .qs-div{
-    height: 82vh;
+    height: 75vh;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    flex-direction: column;
+}
+.guidelines{
+    font-size: 1rem;
+    font-family: "Nunito Sans", sans-serif;
+    padding: 20px 20px;
+    font-weight: 400;
+    order: -1;
+    text-align: center;
+    margin-bottom: 40px;
+    background-color:#ffffff;
+    border-radius: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.guidelines  h2,.guidelines p{
+    background-image: linear-gradient(45deg, #c93e8f, #5a5bbf, #1a8b9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.guidelines p {
+    font-weight: 400;
+}
+.guidelines h2{
+    font-size: 3rem;
+    margin-bottom: 40px;
+    font-weight: 400;
 }
 .qs-div .text{
     font-size: 3rem;
     padding: 30px;
 }
+
+/* quiz page  */
+
 .manage-items{
     padding: 80px 70px 78px;
     border-radius: 10px;
@@ -925,6 +983,11 @@ html {
     z-index: 1;
 }
 
+.quiz-box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 /* manage questions page for editing and adding forms */
 
 .form-group{
@@ -952,13 +1015,14 @@ html {
 
 .question-block {
     background-color: white;
-    padding: 15px;
+    padding: 25px 15px 15px;
     margin: 10px 0;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .question-block h3{
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    font-size: 1.6rem;
 }
 .quiz-container{
     font-family: "Roboto", sans-serif;
@@ -977,4 +1041,164 @@ html {
 }
 .quiz-form{
     padding: 10px 0;
+}
+
+/* result page */
+
+.result-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+}
+
+.score-card{
+    height: 50%;
+    width: 40%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: "Poppins", serif;
+    font-weight: 700;
+    font-style: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.score-card > p {
+    font-size: 5.5rem;
+}
+.cat{
+    width: 200px;
+    position: absolute;
+    top: 15%;
+    right: auto;
+    left: auto;
+}
+.score{
+    background-image: linear-gradient(45deg, #EF89B8, #706085, #171F46);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 968px){
+    .score-card{
+        width: 400px;
+    }
+}
+
+/* CSS for button in the result page*/
+.button-23 {
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-image: linear-gradient(45deg, #EF89B8, #706085, #171F46);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  padding: 13px 23px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: auto;
+}
+
+.button-23:focus-visible {
+  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+  transition: box-shadow .2s;
+}
+
+.button-23:active {
+  background-color: #F7F7F7;
+  border-color: #000000;
+  transform: scale(.96);
+}
+
+.button-23:disabled {
+  border-color: #DDDDDD;
+  color: #DDDDDD;
+  cursor: not-allowed;
+  opacity: 1;
+}
+.result-button{
+    position: absolute;
+    top: 560px;
+}
+
+/* leaderboard page and history page*/
+
+.lb-section{
+    margin-top: 50px;
+    
+}
+.lb-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.lb-container h1{
+    font-size: 2.5rem;
+    margin: 0 0 60px 0;
+    background-image: linear-gradient(45deg, #b32578, #4647ad, #137b8b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.lb-container h2{
+    color: #023a36;
+    margin-bottom: 30px;
+}
+.lb-container h3{
+    margin-top: 15px;
+    color: #112D4E;
+}
+.lb-container table{
+    margin-bottom: 30px;
+}
+.lb-table{
+    text-align: center;
+    width: 60%;
+}
+.lb-hr{ 
+        border: 0;
+        border-top: 2px;
+        border-style:solid;
+        width: 60%;
+        margin: 60px 0;
+        color: #37326b;
+}
+@media (max-width: 968px){
+    .lb-table{
+        text-align: center;
+        width: 90%;
+    }
+}
+.table-head{
+    background-image: linear-gradient(45deg, #b32578b9, #4648adb7, #137b8bb2);
+    color: #F2EFEA;
+}
+.msg-info{
+    width: 100%;
+    background-image: linear-gradient(45deg, #b32578, #4647ad, #137b8b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    flex-direction: column;
 }

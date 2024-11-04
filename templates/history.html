@@ -1,0 +1,75 @@
+{% from 'bootstrap5/form.html' import render_form %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard</title>
+    <link
+      rel="shortcut icon"
+      href="static/images/fav.png"
+      type="image/x-icon"
+    />
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="static/css/styles.css" />
+    
+  </head>
+  <body class="">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Eleventh navbar example">
+      <div class="container">
+        <a class="navbar-brand brand" href="{{url_for('home')}}">Quizzify</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="db-nav-item">
+              <a class="nav-link" href="{{url_for('dashboard')}}">Dashboard</a>
+            </li>
+            <li class="db-nav-item">
+              <a class="nav-link" href="{{url_for('leaderboard')}}">Leaderboard</a>
+            </li>
+            <li class="db-nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <section class="lb-section">
+    {%if history.items()%}
+      <div class="container">
+        <div class=" lb-container">
+            <h1>History</h1>
+            {% for date, quizzes in history.items(): %}
+        <h2 class="history-date">{{ date }}</h2>
+        <table class="table table-bordered mt-4 lb-table">
+            <thead>
+                <tr class="table-head">
+                    <th style="width: 25%;" scope="col">Category Name</th>
+                    <th style="width: 50%;" scope="col">Time</th>
+                    <th style="width: 25%;" scope="col">Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for quiz in quizzes %}
+                <tr>
+                    <td class="h5">{{ quiz.category.category_name.title() }}</td>
+                    <td class="h5">{{ quiz.date.strftime('%I:%M %p') }}</td>
+                    <td class="h5">{{quiz.score}} / {{ quiz.category.questions|length }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr class="lb-hr">
+        {% endfor %}
+        </div>
+      </div>
+      {%else:%}
+      <h2 class="msg-info">Hmm... It feels so quiet down here.</h2>
+      {% endif %}
+    </section>
+    {{ bootstrap.load_js() }}
+  </body>
+</html>

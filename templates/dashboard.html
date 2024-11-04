@@ -25,10 +25,10 @@
         <div class="collapse navbar-collapse" id="navbarsExample09">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <!-- Change 'me-auto' to 'ms-auto' -->
             <li class="db-nav-item">
-              <a class="nav-link" href="#Features">Leaderboard</a>
+              <a class="nav-link" href="{{url_for('leaderboard')}}">Leaderboard</a>
             </li>
             <li class="db-nav-item">
-              <a class="nav-link" href="#About">History</a>
+              <a class="nav-link" href="{{url_for('history')}}">History</a>
             </li>
             <li class="db-nav-item">
               <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
@@ -41,14 +41,23 @@
         <div class="db-intro">
             <div class="db-home-text">
                 <h2>Hello {{(current_user.name).split(" ")[0].title()}}</h2>
-                <p>Ready to test your trivia skills? <br>Choose a category, dive in, and see how you stack up!</p>
+                {% if current_user.id == 1%}
+                <p style="width: 85%;">Are you set to host an exciting quiz? <br>Select a category, get started, and see which contestant rises to the occasion!</p>
+                {% endif %}
                 <a href="{{url_for('category')}}"><button class="button-64" role="button"><span class="text">Take Your Quiz Now 🧠</span></button></a>
                 {% if current_user.id == 1%}
-                <a href="{{url_for('manage')}}" class="category-link" ><button class="button-64" role="button"><span class="text">Manage Categories & Questions 🛠️</span></button></a>
+                <div>
+                  <a href="{{url_for('manage')}}" class="category-link" ><button class="button-64" role="button"><span class="text">Manage Categories & Questions 🛠️</span></button></a>
+                  {% if quizzes %}
+                  <form action="{{ url_for('delete_quiz') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete all quizzes?');">
+                    <button class="button-64" role="button" type="submit"><span class="text">Clear All Quizzes ⚠️</span></button>
+                  </form>
+                  {% endif %}
+                </div>
                 {% endif %}
             </div>
             <div class="db-img">
-                <img src="{{ url_for('static',filename='/images/brain.gif')}}" alt="student sitting with laptop" class="db-home-img-student">
+                <img src="{{ url_for('static',filename='/images/brain.gif')}}" alt="brain taking pull ups" class="db-brain">
             </div>
         </div>
     </section>

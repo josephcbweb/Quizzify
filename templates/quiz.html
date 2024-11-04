@@ -21,11 +21,14 @@
         <p>{{current_user.name.title()}}</p>
     </nav>
     <div class="container quiz-container">
-        <h2 style="text-align: center;">Quiz On</h2>
+        <div class="quiz-box">
+            <img src="{{url_for('static', filename='images/quiz.gif')}}" alt="a box with question mark rotating" style="width: 200px;">
+        </div>
+        
         <form method="POST" action="{{url_for('submit_quiz', category_id = category_id)}}">
             {% for question in questions %}
                 <div class="question-block">
-                    <h3>{{loop.index}}. {{ question.question_text }}</h3>
+                    <h3 class="">{{loop.index}}. {{ question.question_text }}</h3>
                     <div class="radio-group">
                         <input type="radio" class="form-check-input" name="{{ question.id }}" value="{{ question.options[0].option_text }}"> <p>{{ question.options[0].option_text }}</p>
                     </div>

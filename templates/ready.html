@@ -17,9 +17,17 @@
         <a class="brand" href="{{url_for('home')}}">Quizzify</a>
         <p>{{current_user.name.title()}}</p>
     </nav>
-    <div class="qs-div">
+    <div class="qs-div container">
         <div>
             <a href="{{url_for('quizzing',category_id=category_id)}}" style="text-decoration: none;" ><button class="button-64" role="button"><span class="text">Start Quiz</span></button></a>
+        </div>
+        <div class="guidelines">
+            <h2>Quiz Guidelines</h2>
+            <p>You can choose to skip questions,answer only the ones you want. Unanswered questions won’t impact your score.</p>
+            <p>Incorrect answers do not carry penalties, so feel free to guess.</p>
+            <p>Complete the quiz at your own pace,there’s no timer.</p>
+            <p>Once you submit your quiz, your answers are locked in. You cannot go back or make changes after submission.</p>
+            <p>You can only take a quiz from each category once. Retakes for the same category are not allowed.</p>
         </div>
     </div>
 </body>

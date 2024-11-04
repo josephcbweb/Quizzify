@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session, make_response
 from flask_bootstrap import Bootstrap5
 from forms import SignUpForm, LoginForm, CategoryForm, QuestionForm, PopulateForm
 from flask_sqlalchemy import SQLAlchemy
@@ -37,7 +37,7 @@ class Category(db.Model):
     category_name: Mapped[str] = mapped_column(String(250),nullable=False)
     api_id: Mapped[int] = mapped_column(Integer, ForeignKey("category.id"))
     questions = relationship("Questions", back_populates="category",cascade="all, delete-orphan")
-    attempts = relationship("Quiz", back_populates='category')
+    attempts = relationship("Quiz", back_populates='category', cascade="all, delete-orphan")
 
 class Questions(db.Model):
     __tablename__ = "questions"
@@ -147,15 +147,22 @@ def login():
 @app.route('/dashboard',methods=["GET","POST"])
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    quizzes = db.session.execute(db.select(Quiz)).scalars().all()
+    return render_template("dashboard.html", quizzes=quizzes)
 
 
 
 @app.route('/category', methods=["GET","POST"])
 @login_required
 def category():
+    completed_all= True
+    user_id = current_user.id
     category_list = db.session.execute(db.select(Category)).scalars().all()
-    return render_template('category.html',category_list=category_list)
+    completed_category = [category.category_id for category in db.session.execute(db.select(Quiz).where(Quiz.user_id == user_id)).scalars().all()]
+    if category in category_list:
+        if category.id not in completed_category:
+            completed_all = False
+    return render_template('category.html',category_list=category_list, completed_category=completed_category, completed_all=completed_all)
 
 
 
@@ -319,8 +326,6 @@ def delete_question():
     return redirect(url_for('manage_questions',category_id=category_id))
 
 
-
-
 @login_required
 @app.route('/ready', methods=["GET","POST"])
 def ready():
@@ -330,16 +335,27 @@ def ready():
 @login_required
 @app.route('/quizzing',methods=["POST","GET"])
 def quizzing():
+    if 'completed_quiz' in session:
+        session.pop('completed_quiz', None)
+        return redirect(url_for('dashboard'))
     category_id = request.args.get('category_id')
     questions = db.get_or_404(Category, category_id).questions
-    return render_template('quiz.html',questions=questions,category_id=category_id)
+    response = make_response(render_template('quiz.html', questions=questions, category_id=category_id))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 
 @login_required
 @app.route('/submit_quiz', methods=['POST'])
 def submit_quiz():
+    category_id = request.args.get('category_id')
+    check = db.session.execute(db.select(Quiz).where(Quiz.user_id == current_user.id).where(Quiz.category_id == category_id)).scalar()
+    if check:
+        return render_template('completed.html')
+    session['completed_quiz'] = True
     score = 0
     answers = request.form
-    category_id = request.args.get('category_id')
     total_no_of_questions = len(db.get_or_404(Category, category_id).questions)
     for qid, user_answer in answers.items():
         correct_option = db.session.execute(
@@ -349,7 +365,63 @@ def submit_quiz():
         ).scalar()
         if user_answer == correct_option:
             score += 1
-    return render_template('result.html', score=score, total=total_no_of_questions)
+    quiz = Quiz(user_id = current_user.id, category_id = category_id, date=datetime.now(), score=score)
+    db.session.add(quiz)
+    db.session.commit()
+    return redirect(url_for('results', score=score, total=total_no_of_questions))
+
+@admin_only
+@login_required
+@app.route('/delete-quiz', methods=["POST"])
+def delete_quiz():
+    quizzes = db.session.execute(db.select(Quiz)).scalars().all()
+    for quiz in quizzes:
+        db.session.delete(quiz)
+    db.session.commit()
+    return redirect(url_for('dashboard'))
+
+@login_required
+@app.route('/results')
+def results():
+    score = request.args.get('score')
+    total = request.args.get('total')
+    return render_template('result.html', score=score, total=total)
+
+@login_required
+@app.route('/reset')
+def reset():
+    session.pop('completed_quiz', None)
+    return redirect(url_for('dashboard'))
+
+@app.route('/leaderboard')
+def leaderboard():
+    quizzes = db.session.execute(db.select(Quiz)).scalars().all()
+    leaderboard_data = {}
+    for quiz in quizzes:
+        quiz_date = quiz.date.strftime("%B %d %Y")
+        if quiz_date not in leaderboard_data:
+            leaderboard_data[quiz_date] = {}
+        category_name = quiz.category.category_name
+        if category_name not in leaderboard_data[quiz_date]:
+            leaderboard_data[quiz_date][category_name] = []
+        leaderboard_data[quiz_date][category_name].append(quiz)
+    for date in leaderboard_data:
+        for category in leaderboard_data[date]:
+            leaderboard_data[date][category].sort(key=lambda q: q.score, reverse=True)
+    return render_template('leaderboard.html', leaderboard_data=leaderboard_data)
+
+@login_required
+@app.route('/history')
+def history():
+    user_id = current_user.id
+    quizzes = db.session.execute(db.select(Quiz).where(Quiz.user_id == user_id)).scalars().all()
+    history_data = {}
+    for quiz in quizzes:
+        quiz_date = quiz.date.strftime("%B %d %Y")
+        if quiz_date not in history_data:
+            history_data[quiz_date] = []
+        history_data[quiz_date].append(quiz)
+    return render_template('history.html', history=history_data)
 
 @app.route('/logout',methods=["POST","GET"])
 @login_required

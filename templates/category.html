@@ -15,16 +15,24 @@
 <body id="Category">
     <section class="category">
         <div class="container">
+            {% if completed_all: %}
             <h3>Select your category</h3>
             <div class="category-text">
                 <div class="category-container"> 
                     {%for category in category_list: %}
+                        {%if not category.id in completed_category%}
                                 <a href="{{url_for('ready',category_id=category.id)}}" class="category-link" style="order: {{category.id}} ">
                                 <div class="category-item">
                                 <button class="button-86" role="button">{{category.category_name}}</button></div></a>
+                        {%endif%}
                     {%endfor %}
                 </div>
             </div>  
+            {%else: %}
+            <div class="finish">
+                <h2 class="comeback brand">All categories completed!</h2>
+            </div>
+            {%endif%}
         </div>
     </section>
 </body>

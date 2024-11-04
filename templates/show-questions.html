@@ -10,9 +10,12 @@
     type="image/x-icon"
     />
     {{ bootstrap.load_css() }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Play:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/css/styles.css" />
 </head>
-<body>
+<body class="questions-body">
     <nav style="text-align: center;">
         <a class="manage-brand" href="{{url_for('home')}}">Quizzify</a>
     </nav>
@@ -25,7 +28,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Question</th>
-                        <th scope="col">Options</th>
+                        <th scope="col" class="ps-4">Options</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -34,7 +37,7 @@
                 <tr>
                     <td scope="row">{{ loop.index }}</td>
                     <td>{{question.question_text}}</td>
-                    <td><ul>
+                    <td><ol>
                             {% for option in question.options %}
                                 {% if option.is_correct: %}
                                     <li style="color: green;" class="options" style="list-style-type: none;">{{option.option_text}}</li>
@@ -42,7 +45,7 @@
                                     <li style="color: red;" class="options" style="list-style-type: none;">{{option.option_text}}</li>
                                 {% endif %}
                             {% endfor %}
-                        </ul>
+                        </ol>
                     </td>
                     <td><a href="{{url_for('show_question', question_id = question.id, category_id = category.id)}}" class="delete-button">🔗</a></td>
                     <td><a href="{{url_for('delete_question', question_id = question.id, category_id = category.id)}}" class="delete-button">❌</a></td>
