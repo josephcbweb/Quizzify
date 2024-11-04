@@ -36,7 +36,7 @@ class Category(db.Model):
     __tablename__ = "category"
     id: Mapped[int] = mapped_column(Integer,primary_key=True)
     category_name: Mapped[str] = mapped_column(String(250),nullable=False)
-    api_id: Mapped[int] = mapped_column(Integer, ForeignKey("category.id"))
+    api_id: Mapped[int] = mapped_column(Integer)
     questions = relationship("Questions", back_populates="category",cascade="all, delete-orphan")
     attempts = relationship("Quiz", back_populates='category', cascade="all, delete-orphan")
 
