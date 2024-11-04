@@ -14,13 +14,13 @@ import os
 
 app = Flask(__name__)
 Bootstrap5(app)
-app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
+app.config['SECRET_KEY'] = 'aasfasdfasdfa'
 
 # Database Declaration and tables
 
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI','sqlite:///quizzify.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quizzify.db'
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
@@ -36,7 +36,7 @@ class Category(db.Model):
     __tablename__ = "category"
     id: Mapped[int] = mapped_column(Integer,primary_key=True)
     category_name: Mapped[str] = mapped_column(String(250),nullable=False)
-    api_id: Mapped[int] = mapped_column(Integer, ForeignKey("category.id"))
+    api_id: Mapped[int] = mapped_column(Integer)
     questions = relationship("Questions", back_populates="category",cascade="all, delete-orphan")
     attempts = relationship("Quiz", back_populates='category', cascade="all, delete-orphan")
 

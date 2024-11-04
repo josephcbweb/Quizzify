@@ -46,14 +46,12 @@
                 {% endif %}
                 <a href="{{url_for('category')}}"><button class="button-64" role="button"><span class="text">Take Your Quiz Now 🧠</span></button></a>
                 {% if current_user.id == 1%}
-                <div>
                   <a href="{{url_for('manage')}}" class="category-link" ><button class="button-64" role="button"><span class="text">Manage Categories & Questions 🛠️</span></button></a>
                   {% if quizzes %}
                   <form action="{{ url_for('delete_quiz') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete all quizzes?');">
                     <button class="button-64" role="button" type="submit"><span class="text">Clear All Quizzes ⚠️</span></button>
                   </form>
                   {% endif %}
-                </div>
                 {% endif %}
             </div>
             <div class="db-img">
