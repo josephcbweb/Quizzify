@@ -5,21 +5,22 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey, String, Integer, Boolean, DateTime, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_wtf import FlaskForm
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user, login_required
 from functools import wraps
 from datetime import datetime
 import requests, random, html
+import os
+
 
 app = Flask(__name__)
 Bootstrap5(app)
-app.config['SECRET_KEY'] = 'asdfjalskdjfaklj'
+app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
 
 # Database Declaration and tables
 
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quizzify.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI','sqlite:///quizzify.db')
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
@@ -431,4 +432,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
