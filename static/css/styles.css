@@ -369,6 +369,11 @@ html {
     right: 71.1%;
     pointer-events: none;
 }
+@media (max-width: 929px){
+    .pointing{
+        display : hidden;
+    }
+}
 .ls-items p{
     margin: 0;
     padding: 0;
