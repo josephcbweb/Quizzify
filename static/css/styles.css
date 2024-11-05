@@ -652,7 +652,10 @@ html {
         font-weight: 600;
         line-height: 1.7;
     }
-    
+    .db-body{
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
 }
 @media (max-width: 533px){
     .db-body{
