@@ -58,6 +58,7 @@
               </thead>
               <tbody>
                   {% for quiz in quizzes %}
+                    {% if loop.index < 11: %}
                     <tr>
                       {% if loop.index == 1 %}
                           <td scope="row" class="h5">🥇</td>
@@ -72,6 +73,7 @@
                           <td class="h5">{{ quiz.user.name.title() }}</td>
                           <td class="h5">{{quiz.score}} / {{ quiz.category.questions|length }}</td>
                       </tr>
+                      {% endif %}
                   {% endfor %}
               </tbody>
           </table>
