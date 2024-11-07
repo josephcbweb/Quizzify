@@ -399,16 +399,12 @@ def leaderboard():
     quizzes = db.session.execute(db.select(Quiz)).scalars().all()
     leaderboard_data = {}
     for quiz in quizzes:
-        quiz_date = quiz.date.strftime("%B %d %Y")
-        if quiz_date not in leaderboard_data:
-            leaderboard_data[quiz_date] = {}
         category_name = quiz.category.category_name
-        if category_name not in leaderboard_data[quiz_date]:
-            leaderboard_data[quiz_date][category_name] = []
-        leaderboard_data[quiz_date][category_name].append(quiz)
-    for date in leaderboard_data:
-        for category in leaderboard_data[date]:
-            leaderboard_data[date][category].sort(key=lambda q: q.score, reverse=True)
+        if category_name not in leaderboard_data:
+            leaderboard_data[category_name] = []
+        leaderboard_data[category_name].append(quiz)
+        for category in leaderboard_data:
+            leaderboard_data[category].sort(key=lambda q: q.score, reverse=True)
     return render_template('leaderboard.html', leaderboard_data=leaderboard_data)
 
 @login_required
@@ -432,4 +428,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

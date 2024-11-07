@@ -43,6 +43,8 @@
                 <h2>Hello {{(current_user.name).split(" ")[0].title()}}</h2>
                 {% if current_user.id == 1%}
                 <p style="width: 85%;">Are you set to host an exciting quiz? <br>Select a category, get started, and see which contestant rises to the occasion!</p>
+                {% else %}
+                <p style="width: 85%;">Ready to test your trivia skills? <br>Choose a category, dive in, and see how you stack up!</p>
                 {% endif %}
                 <a href="{{url_for('category')}}"><button class="button-64" role="button"><span class="text">Take Your Quiz Now 🧠</span></button></a>
                 {% if current_user.id == 1%}

@@ -244,9 +244,6 @@ html {
     .think, .point-2{
         display: none;
     }
-    .brand{
-        padding-left: 10px;
-    }
 }
 
 @media (min-width: 868px) and (max-width: 992px){
@@ -330,6 +327,7 @@ html {
 
 .ls-card{
     height: 100vh;
+    width: 100%;
     background-color: #F2EFEA;
     background-size: cover;
     display: flex;
@@ -371,6 +369,11 @@ html {
     top: 3%;
     right: 71.1%;
     pointer-events: none;
+}
+@media (max-width: 1000px){
+    .pointing{
+        display : none;
+    }
 }
 .ls-items p{
     margin: 0;
@@ -483,14 +486,24 @@ html {
     }
     .ls-input{
         width: 18rem;
-        border: 0;
         font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: rgba(255, 255, 255, 0.205);
         border-radius: 15px;
-        border: 2px solid #00000070;
+        border: 2px solid #FAA21C;
         padding: 5px;
-        margin: 4px 0;
+        margin: 6px 0;
         size: 40;
+    }
+    .ls-input:focus{
+        background-color: rgba(255, 255, 255, 0.295);
+        border: 2px solid #026b64;
+        outline: none;
+    }
+    .ls-form{
+        margin-top: 20px;
+    }
+    .ls-items{
+        padding: 80px 40px;
     }
 }
 
@@ -626,7 +639,7 @@ html {
         grid-template-rows: 1fr 1fr;
     }
     .db-brain{
-        width:80%;
+        width:70%;
         margin: 0;
     }
     .db-img{
@@ -655,22 +668,21 @@ html {
         font-weight: 600;
         line-height: 1.7;
     }
-    
-}
-@media (max-width: 533px){
     .db-body{
         overflow-x: hidden;
         overflow-y: hidden;
     }
+}
+@media (max-width: 533px){
     .db-intro{
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
     }
     .db-brain{
-        width:80%;
+        width:fit-content;
     }
     .db-img{
-        width: fit-content;
+        width: 400px;
         display: flex;
         justify-content: center;
     }
@@ -697,6 +709,10 @@ html {
         font-size: 1.2rem;
         font-weight: 500;
         line-height: 1.2;
+    }
+    .db-home{
+        overflow-y: hidden;
+        overflow-x: hidden;
     }
 }
 
