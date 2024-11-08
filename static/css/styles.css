@@ -934,7 +934,8 @@ html {
 
 .quiz-nav{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    padding: 0;
 }
 .quiz-nav p{
     font-weight: 600;
@@ -945,7 +946,7 @@ html {
 
 /* ready page */
 .qs-div{
-    height: 75vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -955,14 +956,10 @@ html {
 .guidelines{
     font-size: 1rem;
     font-family: "Nunito Sans", sans-serif;
-    padding: 20px 20px;
     font-weight: 400;
     order: -1;
     text-align: center;
     margin-bottom: 40px;
-    background-color:#ffffff;
-    border-radius: 30px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 .guidelines  h2,.guidelines p{
     background-image: linear-gradient(45deg, #c93e8f, #5a5bbf, #1a8b9d);
@@ -971,10 +968,10 @@ html {
 }
 
 .guidelines p {
-    font-weight: 400;
+    font-weight: 600;
 }
 .guidelines h2{
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 40px;
     font-weight: 400;
 }
@@ -982,6 +979,8 @@ html {
     font-size: 3rem;
     padding: 30px;
 }
+
+
 
 /* quiz page  */
 
