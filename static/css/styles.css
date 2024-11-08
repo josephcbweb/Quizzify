@@ -370,7 +370,7 @@ html {
     right: 71.1%;
     pointer-events: none;
 }
-@media (max-width: 1000px){
+@media (max-width: 848px){
     .pointing{
         display : none;
     }
@@ -505,6 +505,9 @@ html {
     .ls-items{
         padding: 80px 40px;
     }
+    .sign-div{
+        padding: 60px 40px 40px;
+    }
 }
 
 .sign-div > p{
@@ -512,8 +515,12 @@ html {
     opacity: 80;
     margin-top: 5px;
 }
-.sign-div > a{
-    bottom: 50px;
+
+
+@media (max-width: 868px){
+    .sign-div > a{
+        bottom: 30px;
+    }
 }
 .flash{
     text-align: center;
@@ -537,6 +544,7 @@ html {
     right: 0px;
     width: 100%;
 }
+
 /* Dashboard Page */
 
 
@@ -1215,5 +1223,22 @@ html {
     justify-content: center;
     align-items: center;
     height: 70vh;
+    flex-direction: column;
+}
+
+/* Admin Dashboard */
+
+.admin-body{
+    height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100%;
+}
+
+.admin-buttons-container{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
 }

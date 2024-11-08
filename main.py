@@ -14,13 +14,13 @@ import os
 
 app = Flask(__name__)
 Bootstrap5(app)
-app.config['SECRET_KEY'] = 'aasfasdfasdfa'
+app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
 
 # Database Declaration and tables
 
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quizzify.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///quizzify.db")
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
@@ -68,6 +68,12 @@ class Quiz(db.Model):
     date: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     score: Mapped[int] = mapped_column(Integer, nullable=False)
 
+class QuizDetails(db.Model):
+    __tablename__ = "quiz_details"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    quiz_name: Mapped[str] = mapped_column(String(250), nullable=False)
+    quiz_details: Mapped[str] = mapped_column(String(500))
+    quiz_time: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
 
 with app.app_context():
     db.create_all()
@@ -148,10 +154,14 @@ def login():
 @app.route('/dashboard',methods=["GET","POST"])
 @login_required
 def dashboard():
+    return render_template("dashboard.html")
+
+@admin_only
+@app.route('/admin-dashboard',methods=["POST","GET"])
+def admin_dashboard():
     quizzes = db.session.execute(db.select(Quiz)).scalars().all()
-    return render_template("dashboard.html", quizzes=quizzes)
-
-
+    user_count= db.session.execute(db.select(User)).scalars().all()
+    return render_template('admin-dashboard.html', quizzes=quizzes, user_count=len(user_count))
 
 @app.route('/category', methods=["GET","POST"])
 @login_required
@@ -428,4 +438,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
