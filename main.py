@@ -74,7 +74,7 @@ class Quiz(db.Model):
     category_id: Mapped[int] = mapped_column(Integer, ForeignKey("category.id"))
     date: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     score: Mapped[int] = mapped_column(Integer, nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean)
+    is_active: Mapped[bool] = mapped_column(Boolean,nullable=True,default=True)
     archive_group : Mapped[int] = mapped_column(Integer,nullable=True)
 
 class QuizDetails(db.Model):
@@ -224,9 +224,7 @@ def admin_dashboard():
         except Exception as e:
             print(f"Failed to send email: {e}")
 
-    quizzes = bool(db.session.execute(db.select(Quiz)).scalars().all())
-    for quiz in quizzes:
-        print(f"id: {quiz.id}, user_id: {quiz.user_id}, category_id: {quiz.category_id}, date: {quiz.date}, score: {quiz.score}")
+    quizzes = bool(db.session.execute(db.select(Quiz).where(Quiz.is_active == True)).scalars().all())
     return render_template('admin-dashboard.html', quizzes=quizzes, form=form)
 
 
