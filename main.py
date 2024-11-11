@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, session, make_response
 from flask_bootstrap import Bootstrap5
-from forms import SignUpForm, LoginForm, CategoryForm, QuestionForm, PopulateForm, EmailForm
+from forms import SignUpForm, LoginForm, CategoryForm, QuestionForm, PopulateForm
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey, String, Integer, Boolean, DateTime, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -9,19 +9,12 @@ from flask_login import UserMixin, login_user, LoginManager, current_user, logou
 from functools import wraps
 from datetime import datetime
 import requests, random, html
-from flask_ckeditor import CKEditor
-from flask_ckeditor.utils import cleanify
 import os
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import smtplib
+
 
 app = Flask(__name__)
 Bootstrap5(app)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
-ckeditor = CKEditor(app)
-EMAIL = os.environ.get('EMAIL')
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 # Database Declaration and tables
 
@@ -74,8 +67,6 @@ class Quiz(db.Model):
     category_id: Mapped[int] = mapped_column(Integer, ForeignKey("category.id"))
     date: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     score: Mapped[int] = mapped_column(Integer, nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean)
-    archive_group : Mapped[int] = mapped_column(Integer,nullable=True)
 
 class QuizDetails(db.Model):
     __tablename__ = "quiz_details"
@@ -117,7 +108,6 @@ def home():
 @app.route("/signup", methods=["POST","GET"])
 def signup():
     form = SignUpForm()
-    html_content = ''
     if form.validate_on_submit():
         if not (db.session.execute(db.select(User).where(User.email == form.email.data)).scalar()):
             hashed_password = generate_password_hash(form.password.data, method="pbkdf2:sha256:600000",salt_length=8)
@@ -127,21 +117,6 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user)
-            with open(f'static/email-template/email4.html', 'r', encoding='utf-8') as file:
-                html_content = file.read()
-            try:
-                with smtplib.SMTP('smtp.gmail.com',587) as smtp:
-                    smtp.starttls()
-                    smtp.login(EMAIL,EMAIL_PASSWORD)
-                    msg = MIMEMultipart('alternative')
-                    msg['From'] = EMAIL
-                    msg['To'] = new_user.email
-                    msg['Subject'] = "Welcome to Quizzify! We're Thrilled to Have You Onboard!"
-                    personalized_content = html_content.replace("{{name}}", new_user.name.title())
-                    msg.attach(MIMEText(personalized_content,'html'))
-                    smtp.sendmail(msg=msg.as_string(), to_addrs=new_user.email, from_addr=EMAIL)
-            except Exception as e:
-                print(f'Failed to send email: {e}')
             return redirect(url_for('thankyou'))
         else:
             flash("Account already exist. Please login")
@@ -181,55 +156,12 @@ def login():
 def dashboard():
     return render_template("dashboard.html")
 
-@login_required
 @admin_only
-@app.route('/admin-dashboard', methods=["POST", "GET"])
+@app.route('/admin-dashboard',methods=["POST","GET"])
 def admin_dashboard():
-    form = EmailForm()
-    template_id = request.args.get('template_id')
-    if template_id is not None and int(template_id) != 0:
-        mail_subject=""
-        with open(f'static/email-template/email{template_id}.html', 'r', encoding='utf-8') as file:
-            html_content = file.read()
-        if template_id == '1':
-            mail_subject= "It's Quiz Time! Dive Into Our New Challenge!"
-        elif template_id == '2':
-            mail_subject = "Quizzify Update: Scheduled Maintenance and Enhancements"
-        else:
-            mail_subject = "Exciting News: New Features Added to Quizzify!"
-        form = EmailForm(content=html_content,subject=mail_subject)
-
-    if request.method == "POST":
-        users = db.session.execute(db.select(User)).scalars().all()
-        html_content = form.content.data
-        try:
-            with smtplib.SMTP('smtp.gmail.com', 587) as server:
-                server.starttls()
-                server.login(EMAIL, EMAIL_PASSWORD)
-                for user in users:
-                    personalized_content = html_content.replace("{{name}}", user.name.title())
-                    msg = MIMEMultipart('alternative')
-                    msg['From'] = EMAIL
-                    msg['To'] = user.email
-                    msg['Subject'] = form.subject.data
-                    msg.attach(MIMEText(personalized_content, 'html'))
-
-                    print(f"Sending email to {user.email}:")
-                    if user.email in ['josephcbweb@gmail.com', 'asdfas@gmail.com']:
-                        print(personalized_content)
-                        server.sendmail(msg=msg.as_string(), to_addrs=user.email, from_addr=EMAIL)
-
-                return render_template('sent.html')
-
-        except Exception as e:
-            print(f"Failed to send email: {e}")
-
-    quizzes = bool(db.session.execute(db.select(Quiz)).scalars().all())
-    for quiz in quizzes:
-        print(f"id: {quiz.id}, user_id: {quiz.user_id}, category_id: {quiz.category_id}, date: {quiz.date}, score: {quiz.score}")
-    return render_template('admin-dashboard.html', quizzes=quizzes, form=form)
-
-
+    quizzes = db.session.execute(db.select(Quiz)).scalars().all()
+    user_count= db.session.execute(db.select(User)).scalars().all()
+    return render_template('admin-dashboard.html', quizzes=quizzes, user_count=len(user_count))
 
 @app.route('/category', methods=["GET","POST"])
 @login_required
@@ -237,7 +169,7 @@ def category():
     completed_all= True
     user_id = current_user.id
     category_list = db.session.execute(db.select(Category)).scalars().all()
-    completed_category = [category.category_id for category in db.session.execute(db.select(Quiz).where(Quiz.user_id == user_id).where(Quiz.is_active == True)).scalars().all()]
+    completed_category = [category.category_id for category in db.session.execute(db.select(Quiz).where(Quiz.user_id == user_id)).scalars().all()]
     if category in category_list:
         if category.id not in completed_category:
             completed_all = False
@@ -320,6 +252,7 @@ def add_question():
     id = request.args.get('category_id')
     category = db.get_or_404(Category, id)
     if request.method == "POST":
+        print("Helloooooo")
         bool_values[int(form.correct.data) - 1] = True
         new_question = Questions(question_text = form.question_text.data,
                                  category_id = category.id)
@@ -443,23 +376,20 @@ def submit_quiz():
         ).scalar()
         if user_answer == correct_option:
             score += 1
-    quiz = Quiz(user_id = current_user.id, category_id = category_id, date=datetime.now(), score=score, is_active=True)
+    quiz = Quiz(user_id = current_user.id, category_id = category_id, date=datetime.now(), score=score)
     db.session.add(quiz)
     db.session.commit()
     return redirect(url_for('results', score=score, total=total_no_of_questions))
 
 @admin_only
 @login_required
-@app.route('/archive-quiz', methods=["POST"])
-def archive_quiz():
-    finished_quizzes = db.session.execute(db.select(Quiz).where(Quiz.is_active == False)).scalars().all()
-    quizzes_active = db.session.execute(db.select(Quiz).where(Quiz.is_active == True)).scalars().all()
-    last_archive_group = finished_quizzes[-1].archive_group
-    print(last_archive_group)
-    for quiz in quizzes_active:
-        quiz.is_active = False
+@app.route('/delete-quiz', methods=["POST"])
+def delete_quiz():
+    quizzes = db.session.execute(db.select(Quiz)).scalars().all()
+    for quiz in quizzes:
+        db.session.delete(quiz)
     db.session.commit()
-    return redirect(url_for('admin_dashboard'))
+    return redirect(url_for('dashboard'))
 
 @login_required
 @app.route('/results')
@@ -476,7 +406,7 @@ def reset():
 
 @app.route('/leaderboard')
 def leaderboard():
-    quizzes = db.session.execute(db.select(Quiz).where(Quiz.is_active == True)).scalars().all()
+    quizzes = db.session.execute(db.select(Quiz)).scalars().all()
     leaderboard_data = {}
     for quiz in quizzes:
         category_name = quiz.category.category_name
@@ -486,26 +416,6 @@ def leaderboard():
         for category in leaderboard_data:
             leaderboard_data[category].sort(key=lambda q: q.score, reverse=True)
     return render_template('leaderboard.html', leaderboard_data=leaderboard_data)
-
-@login_required
-@app.route('/previous-quizzes')
-def previous():
-    quizzes = db.session.execute(db.select(Quiz).where(Quiz.is_active == False)).scalars().all()
-    leaderboard_data = {}
-    for quiz in quizzes:
-        group_id = quiz.archive_group
-        if group_id not in leaderboard_data:
-            grouped_quizzes = db.session.execute(db.select(Quiz).where(Quiz.is_active == False).where(Quiz.archive_group == group_id)).scalars().all()
-            leaderboard_data[group_id] = {'start': grouped_quizzes[0].date, 'end': grouped_quizzes[-1].date}
-        category_name = quiz.category.category_name
-        if category_name not in leaderboard_data[group_id]:
-            leaderboard_data[group_id][category_name] = []
-        leaderboard_data[group_id][category_name].append(quiz)
-        for category in leaderboard_data[group_id]:
-            if category not in ['start', 'end']:
-                leaderboard_data[group_id][category].sort(key=lambda q: q.score, reverse=True)
-    return render_template('previous.html',leaderboard_data=leaderboard_data)
-
 
 @login_required
 @app.route('/history')
@@ -528,4 +438,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

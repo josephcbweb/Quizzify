@@ -20,7 +20,7 @@
         <a class="manage-brand" href="{{url_for('home')}}">Quizzify</a>
     </nav>
     <div class="container">
-        <h2 style="margin: 40px 0; font-weight: 600;">{{ category.category_name }}</h2>
+        <h2 style="margin: 40px 0;">{{ category.category_name }}</h2>
         {%if category.questions:%}
         <div class="question-table">
             <table class="table table-striped">
@@ -57,14 +57,14 @@
             <h3 style="margin: 50px 0;">Uh-oh! This category is on a question diet! 🥳❓</h3>
         {%endif%}
         <div class="question-buttons">
-            <a href="{{ url_for('add_question', category_id = category.id) }}" class="link-underline-opacity-0" style="text-decoration: none;">
+            <a href="{{ url_for('add_question', category_id = category.id) }}" class="link-underline-opacity-0">
                 <button type="button" class="button-56 mt-sm-4">Add Question</button>
             </a>
-            <a href="{{ url_for('auto_populate', api_id = category.api_id) }}" class="link-underline-opacity-0" style="text-decoration: none;">
+            <a href="{{ url_for('auto_populate', api_id = category.api_id) }}" class="link-underline-opacity-0" style="margin: 0 50px;">
                 <button type="button" class="button-56 mt-sm-4">Auto Populate</button>
             </a>
-            <a href="{{ url_for('manage') }}" class="link-underline-opacity-0" style="text-decoration: none;">
-                <button type="button" class="button-56 mt-sm-4">Category Page</button>
+            <a href="{{ url_for('manage') }}" class="link-underline-opacity-0" style="margin-top: 40px;">
+                <button type="button" class="button-56 mt-sm-4">Go-to Category Page</button>
             </a>
         </div>
     </div>

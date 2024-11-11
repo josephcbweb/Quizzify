@@ -1,8 +1,11 @@
 body {
     background-color: #F2EFEA;
     background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
+    animation: gradient 10s ease infinite; /* Slowed down animation */
     height: 100vh;
+}
+html {
+    scroll-behavior: smooth;
 }
 
 .nav-link {
@@ -286,8 +289,9 @@ body {
 .thank-you p{
     font-size: 1rem;
 }
-.thank-png{
-    margin: 40px 0;
+.thank-gif{
+    margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 @media (min-width: 303px) and (max-width: 980px){
@@ -297,16 +301,12 @@ body {
         align-items: center;
         flex-direction: column;
         color: rgb(87, 87, 87);
-        overflow-x: hidden;
-        padding-bottom: 50px;
-    }
-    .thank-png{
-        width: 500px;
-        margin: 60px 0;
+        text-align: center;
+        overflow: hidden;
     }
     .thank-you h2{
         color: black;
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
     .thank-you p{
         font-size: 1rem;
@@ -409,12 +409,7 @@ body {
 .ls-form{
     margin-top: 20px;
 }
-.manage-items .button-23{
-    width: 18rem;
-    display: block;
-    margin-top: 30px;
-    border-radius: 16px ;
-}
+
 /* ls button css */
 .button-85 {
   padding: 0.6em 2em;
@@ -581,7 +576,7 @@ body {
     align-items: center;
 }
 .db-img img{
-    width: 100%;
+    width: 120%;
 }
 .db-home-text h2{
     font-size: 3rem;
@@ -659,13 +654,9 @@ body {
         width: fit-content;
         display: flex;
         justify-content: center;
-        align-items: center;
     }
     .db-home-text{
         margin-top: 10%;
-        display: flex;
-        justify-content: center;
-        align-content: center;
     }
     .db-home-text h2{
         font-size: 2rem;
@@ -685,6 +676,10 @@ body {
         font-weight: 600;
         line-height: 1.7;
     }
+    .db-body{
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
 }
 @media (max-width: 533px){
     .db-intro{
@@ -695,7 +690,7 @@ body {
         width:fit-content;
     }
     .db-img{
-        width: 100%;
+        width: 400px;
         display: flex;
         justify-content: center;
     }
@@ -722,6 +717,10 @@ body {
         font-size: 1.2rem;
         font-weight: 500;
         line-height: 1.2;
+    }
+    .db-home{
+        overflow-y: hidden;
+        overflow-x: hidden;
     }
 }
 
@@ -923,13 +922,10 @@ body {
     background-color: #F8F9FA;
     backdrop-filter: blur(80px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    padding: 10px 15px;
+    padding: 10px;
     border-radius: 10px;
 }
-.ac-card .manage-items{
-    padding: 40px 30px;
-    margin: 0;
-}
+
 /* question display page */
 
 .questions-body{
@@ -1017,18 +1013,17 @@ body {
 }
 /* manage questions page for editing and adding forms */
 
+.form-group{
+    margin: 20px 0;
+}
+.form-group button{
+    margin-top: 20px;
+}
+
 .question-buttons{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
     padding-bottom: 50px;
 }
-.table-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
+
 /* populate page */
 
 .populate-container{
@@ -1077,12 +1072,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     height: 80%;
 }
 
 .score-card{
-    height: 370px;
+    height: 50%;
     width: 40%;
     background-color: #ffffff;
     border-radius: 20px;
@@ -1094,16 +1088,18 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 }
 
 .score-card > p {
-    font-size: 6rem;
+    font-size: 5.5rem;
 }
 .cat{
     width: 200px;
-    position: relative;
-    top: 7px;
+    position: absolute;
+    top: 15%;
+    right: auto;
+    left: auto;
 }
 .score{
     background-image: linear-gradient(45deg, #EF89B8, #706085, #171F46);
@@ -1113,7 +1109,7 @@ body {
 
 @media (max-width: 968px){
     .score-card{
-        width: 380px;
+        width: 400px;
     }
 }
 
@@ -1163,7 +1159,7 @@ body {
 }
 .result-button{
     position: absolute;
-    top: 540px;
+    top: 560px;
 }
 
 /* leaderboard page and history page*/
@@ -1177,7 +1173,6 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-bottom: 30px;
 }
 .lb-container h1{
     font-size: 2.5rem;
@@ -1188,7 +1183,7 @@ body {
 }
 .lb-container h2{
     color: #023a36;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 .lb-container h3{
     margin-top: 15px;
@@ -1201,15 +1196,18 @@ body {
     text-align: center;
     width: 60%;
 }
-
+.lb-hr{ 
+        border: 0;
+        border-top: 2px;
+        border-style:solid;
+        width: 60%;
+        margin: 60px 0;
+        color: #37326b;
+}
 @media (max-width: 968px){
     .lb-table{
         text-align: center;
         width: 90%;
-    }
-    .previous-btn{
-        width: 100%;
-        padding: 20px 0;
     }
 }
 .table-head{
@@ -1218,191 +1216,29 @@ body {
 }
 .msg-info{
     width: 100%;
+    background-image: linear-gradient(45deg, #b32578, #4647ad, #137b8b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 70vh;
     flex-direction: column;
 }
-.msg-info h2{
-    text-align: center;
-    background-image: linear-gradient(45deg, #b32578, #4647ad, #137b8b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.previous-btn{
-    width: 60%;
-    padding: 20px 0;
-}
-.previous-btn button{
-    width: 100%;
-}
 
 /* Admin Dashboard */
+
 .admin-body{
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100%;
 }
-.admin-body h2{
-    background-image: linear-gradient(45deg, #c93e8f, #5a5bbf, #1a8b9d);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-align: center;
-    margin-bottom: 10px;
-}
+
 .admin-buttons-container{
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.admin-msg-container{
-    margin-top: 50px;
-    gap: 30px;
-    background-color: rgb(255, 255, 255);
-    padding: 30px 40px;
-    border-radius: 10px;
-}
-
-@media (max-width: 1206px){
-    .admin-body{
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-    }
-    .admin-msg-container{
-        width: 100%;
-        background-color: none;
-        padding:10px;
-        display: flex;
-        flex-direction: column;
-    }
-    .admin-buttons-container{
-        width: 100%;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
-}
-
-/* button for email selection in the admin dashboard */
-
-
-.button-38 {
-  background-image: linear-gradient(45deg, #e647a3, #6264d4, #209fb3);
-  border: 0;
-  border-radius: .5rem;
-  box-sizing: border-box;
-  color: #ffffff;
-  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  font-size: .875rem;
-  font-weight: 600;
-  line-height: 1.25rem;
-  padding: .75rem 1rem;
-  text-align: center;
-  text-decoration: none #D1D5DB solid;
-  text-decoration-thickness: auto;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-.button-38:hover {
-    background-image: linear-gradient(45deg, #c93e8f, #5a5bbf, #1a8b9d);
-}
-
-.button-38:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.button-38:focus-visible {
-  box-shadow: none;
-}
-
-.button-danger{
-    background-image: linear-gradient(45deg, #e647a3, #6264d4, #209fb3);
-    padding: 20px;
-    color: white;
-}
-.button-danger:hover{
-    background-image: linear-gradient(45deg, #c93e8f, #5a5bbf, #1a8b9d);
-    padding: 20px;
-    color: white;
-}
-
-.email-templates{
-    text-decoration: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin: 30px 0;
-}
-
-/* Sent confirmation page */
-
-.msg-success{
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 85vh;
-    gap: 30px;
-}
-
-.msg-success h1{
-    background-image: linear-gradient(45deg, #c93e8f, #5a5bbf, #1a8b9d);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.msg-success .button-23{
-    background-image: linear-gradient(45deg, #c93e8f, #5a5bbf, #1a8b9d);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* Previous Quiz Results Page */
-.previous-grouped-dates{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    margin-bottom: 20px;
-    background-image: linear-gradient(45deg, #b43880, #4f50a8, #177685);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-@media (max-width: 968px){
-    .previous-grouped-dates h3{
-        font-size: 1.5rem;
-    }
-    .pre-head{
-        text-align: center;
-    }
-}
-
-.lb-btn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.lb-hr{
-    width: 50%;
-    border: 0;
-    border-top: 2px dashed;
-    margin: 20px 0;
 }

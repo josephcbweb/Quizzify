@@ -9,9 +9,10 @@
     <link rel="shortcut icon" href="static/images/fav.png" type="image/x-icon" />
     {{ bootstrap.load_css() }}
     <link rel="stylesheet" href="static/css/styles.css" />
+
 </head>
 
-<body class="admin-main">
+<body class="">
     <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Eleventh navbar example">
         <div class="container">
             <a class="navbar-brand brand" href="{{url_for('home')}}">Quizzify</a>
@@ -38,53 +39,31 @@
             </div>
         </div>
     </nav>
-    <div class="admin-body container">
+    <div class="admin-body container ">
         <div class="admin-buttons-container">
-            {% if current_user.id == 1 %}
-            <a href="{{url_for('manage')}}" class="category-link"><button class="button-64" role="button"><span class="text">Manage Categories & Questions 🛠️</span></button></a>
-            <a href="{{url_for('manage')}}" class="category-link"><button class="button-64" role="button"><span class="text">Manage Upcoming Quizzes 📃</span></button></a>
+            {% if current_user.id == 1%}
+            <a href="{{url_for('manage')}}" class="category-link"><button class="button-64" role="button"><span
+                        class="text">Manage Categories & Questions 🛠️</span></button></a>
+            <a href="{{url_for('manage')}}" class="category-link"><button class="button-64" role="button"><span
+                        class="text">Manage Upcoming Quizzes 📃</span></button></a>
             {% if quizzes %}
-            <form action="{{ url_for('archive_quiz') }}" method="POST" onsubmit="return confirm('Are you sure you want to archive all current quizzes?');">
-                <button class="button-64" role="button" type="submit"><span class="text">Clear All Quizzes ⚠️</span></button>
+            <form action="{{ url_for('delete_quiz') }}" method="POST"
+                onsubmit="return confirm('Are you sure you want to delete all quizzes?');">
+                <button class="button-64" role="button" type="submit"><span class="text">Clear All Quizzes
+                        ⚠️</span></button>
             </form>
             {% endif %}
             {% endif %}
         </div>
-        <div class="main-msg">
-            <div class="admin-msg-container">
-                <h2 class="">Send a Message to Users</h2>
-                <div class="email-templates">
-                    <a href="{{url_for('admin_dashboard', template_id=1)}}"><button class="button-38" role="button">New Quiz</button></a>
-                    <a href="{{url_for('admin_dashboard', template_id=2)}}"><button class="button-38" role="button">Ongoing Update</button></a>
-                    <a href="{{url_for('admin_dashboard', template_id=3)}}"><button class="button-38" role="button">New Feature</button></a>
-                    <a href="{{url_for('admin_dashboard', template_id=0)}}"><button class="button-38" role="button">Clear</button></a>
-                </div>
-                {{ ckeditor.load() }}
-                {{ ckeditor.config(name='content', config={'allowedContent': True, 'extraAllowedContent': '*[class,id,style](*);'}) }}
-                <form method="POST" action="" class="admin-msg-form" onsubmit="return confirm('Are you sure you want to send this message to everyone?');"> 
-                    {{ form.hidden_tag() }} 
-                    <div class="form-group"> 
-                        {{ form.subject.label(class="form-label fw-bold") }} 
-                        {{ form.subject(class="form-control") }} 
-                    </div>
-                    <div class="form-group mt-4"> 
-                        {{ form.content.label(class="form-label fw-bold") }}
-                        {{ form.content() | safe }} 
-                    </div>
-                    <div class="form-group"> 
-                        <button type="submit" class="button-38 mt-4 button-danger">Send Email</button> 
-                    </div>
-                </form>
+        <div>
+            <div>
+                
             </div>
         </div>
     </div>
+
+    </section>
     {{ bootstrap.load_js() }}
-    <script>
-        CKEDITOR.replace('content', {
-            allowedContent: true,
-            extraAllowedContent: '*[class,id,style](*);'
-        });
-    </script>    
 </body>
 
 </html>
