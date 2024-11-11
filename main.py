@@ -415,6 +415,8 @@ def leaderboard():
         leaderboard_data[category_name].append(quiz)
         for category in leaderboard_data:
             leaderboard_data[category].sort(key=lambda q: q.score, reverse=True)
+    for quiz in quizzes:
+        print(f"id: {quiz.id}, user_id: {quiz.user_id}, category_id: {quiz.category_id}, date: {quiz.date}, score: {quiz.score}")
     return render_template('leaderboard.html', leaderboard_data=leaderboard_data)
 
 @login_required
