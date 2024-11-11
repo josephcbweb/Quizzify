@@ -47,9 +47,9 @@
         <table class="table table-bordered mt-4 lb-table">
           <thead>
             <tr class="table-head">
-              <th scope="col" style="width: 20%;">#</th>
-              <th scope="col" style="width: 60%;">Name</th>
-              <th scope="col" style="width: 20%;">Score</th>
+              <th scope="col" style="width: 23%;">#</th>
+              <th scope="col" style="width: 55%;">Name</th>
+              <th scope="col" style="width: 25%;">Score</th>
             </tr>
           </thead>
           <tbody>
@@ -73,12 +73,16 @@
           </tbody>
         </table>
         {% endfor %}
-        <hr class="lb-hr">
+        <div class="previous-btn container">
+          <a href="{{url_for('previous')}}" style="text-decoration: none; "><button type="submit" class="button-23 button-danger">Previous Quizzes</button></a>
+        </div>
       </div>
     </div>
     {% else: %}
-    <h2 class="msg-info container">No entries on the leaderboard yet! <br> Dive into the competition and let your name
-      shine here!</h2>
+    <div class="msg-info container">
+      <h2>No scores up yet! Start playing and be the first to dominate the leaderboard.</h2>
+      <a href="{{url_for('previous')}}" style="text-decoration: none;"><button type="submit" class="button-38 mt-4 button-danger">Previous Quizzes</button></a>
+    </div>
     {% endif %}
   </section>
   {{ bootstrap.load_js() }}

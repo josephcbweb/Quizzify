@@ -1,0 +1,101 @@
+{% from 'bootstrap5/form.html' import render_form %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Previous Results</title>
+    <link rel="shortcut icon" href="static/images/fav.png" type="image/x-icon" />
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="static/css/styles.css" />
+
+</head>
+
+<body class="">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Eleventh navbar example">
+        <div class="container">
+            <a class="navbar-brand brand" href="{{url_for('home')}}">Quizzify</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09"
+                aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample09">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="db-nav-item">
+                        <a class="nav-link" href="{{url_for('dashboard')}}">Dashboard</a>
+                    </li>
+                    <li class="db-nav-item">
+                        <a class="nav-link" href="{{url_for('history')}}">History</a>
+                    </li>
+                    <li class="db-nav-item">
+                        <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="lb-section">
+        {% if leaderboard_data.items(): %}
+        <div class="table-responsive">
+            <div class="container lb-container">
+                <h1 class="pre-head">Previous Quiz Results</h1>
+                {% for group, category in leaderboard_data.items() %}
+                <div class="previous-grouped-dates">
+                    <h3>
+                        {{category['start'].strftime('%d %b %Y')}} To {{category['end'].strftime('%d %b %Y')}}
+                    </h3>
+                </div>
+                {% for category_name , quizzes in category.items(): %}
+                {%if category_name not in ['start','end'] : %}
+                <h3>{{ category_name }}</h3>
+                <table class="table table-bordered mt-4 lb-table">
+                    <thead>
+                        <tr class="table-head">
+                            <th scope="col" style="width: 25%;">#</th>
+                            <th scope="col" style="width: 50%;">Name</th>
+                            <th scope="col" style="width: 25%;">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for quiz in quizzes %}
+                        {% if loop.index < 11: %} <tr>
+                            {% if loop.index == 1 %}
+                            <td scope="row" class="h5">🥇</td>
+                            {% elif loop.index == 2 %}
+                            <td scope="row" class="h5">🥈</td>
+                            {% elif loop.index == 3 %}
+                            <td scope="row" class="h5">🥉</td>
+                            {%else:%}
+                            <td scope="row" class="h5">{{loop.index}}</td>
+                            {% endif %}
+
+                            <td class="h5">{{ quiz.user.name.title() }}</td>
+                            <td class="h5">{{quiz.score}} / {{ quiz.category.questions|length }}</td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                    </tbody>
+                </table>
+                {%endif%}
+                {%endfor%}
+                <hr class="my-5 lb-hr">
+                {% endfor %}
+                                    <a href="{{url_for('leaderboard')}}" style="text-decoration: none;" class="w-100 lb-btn"><button type="submit"
+                        class="button-23 mt-4 button-danger previous-btn">Leaderboard</button></a>
+
+            </div>
+        </div>
+        {% else: %}
+        <div class="msg-info container">
+            <h2>Looks like this place is empty.</h2>
+            <a href="{{url_for('leaderboard')}}" style="text-decoration: none;"><button type="submit"
+                class="button-38 mt-4 button-danger">Leaderboard</button></a>
+        </div>
+        {% endif %}
+    </section>
+    {{ bootstrap.load_js() }}
+</body>
+
+</html>

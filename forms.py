@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, PasswordField, IntegerField, SubmitField, SelectMultipleField
+from flask_ckeditor import CKEditorField
 from wtforms.validators import DataRequired, URL, Email, EqualTo, NumberRange
 
 class SignUpForm(FlaskForm):
@@ -27,3 +28,7 @@ class QuestionForm(FlaskForm):
 class PopulateForm(FlaskForm):
     quantity = IntegerField('No of question to be fetched', validators=[DataRequired(),NumberRange(min=10, max=50)])
     difficulty = SelectField("Choose Difficulty", choices=[('easy', 'Easy'),('medium','Medium'),('hard', 'Hard')])
+
+class EmailForm(FlaskForm):
+    subject = StringField("Subject",validators=[DataRequired()])
+    content = CKEditorField("Content",validators=[DataRequired()])
