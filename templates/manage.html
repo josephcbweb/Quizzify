@@ -28,6 +28,7 @@
               <p>{{ form.api_id(placeholder="API ID", class='ls-input')}}</p>
               <button class="button-85" role="button">Add Category</button>
           </form>
+          <a href="{{url_for('admin_dashboard')}}" style="text-decoration: none;" ><button class="button-23" role="button"><span class="text">Dashboard</span></button></a>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
               {% for message in messages %}
