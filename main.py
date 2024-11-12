@@ -215,9 +215,7 @@ def admin_dashboard():
                     msg.attach(MIMEText(personalized_content, 'html'))
 
                     print(f"Sending email to {user.email}:")
-                    if user.email in ['josephcbweb@gmail.com', 'asdfas@gmail.com']:
-                        print(personalized_content)
-                        server.sendmail(msg=msg.as_string(), to_addrs=user.email, from_addr=EMAIL)
+                    server.sendmail(msg=msg.as_string(), to_addrs=user.email, from_addr=EMAIL)
 
                 return render_template('sent.html')
 
